@@ -1,0 +1,41 @@
+﻿@page "/login"
+
+@using ISAProjekat23.Model.Domain;
+
+@inject HttpClient Http
+
+<PageTitle>Login</PageTitle>
+
+<div class="container">
+    <div class="row login-form">
+        <div class="col-md-6">
+            <form>
+                <h2 class="mb-4">Login</h2>
+                <div class="mb-3">
+                    <label for="text" class="form-label">Email address</label>
+                    <input @bind="@user.Email" type="email" class="form-control" id="email" placeholder="Enter your email">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input @bind="@user.Password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                </div>
+                <button type="button" class="btn btn-primary" @onclick="async () => await LoginUser()">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private User user = new User();
+
+    public async Task LoginUser()
+    {
+        user.FirstName = "";
+        user.LastName = "";
+        user.Username = "";
+        var response = await Http.PostAsJsonAsync("https://localhost:7241/User/Login", user);
+        var resp = await response.Content.ReadFromJsonAsync<User>();
+        Console.WriteLine(resp);
+    }
+}

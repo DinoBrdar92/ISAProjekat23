@@ -25,5 +25,8 @@ namespace ISAProjekat23.Model.Entities
         public string LastName { get; set; }
         
         public string Email { get; set; }
+
+        [Required]
+        public string Password { get; set; }
     }
 }

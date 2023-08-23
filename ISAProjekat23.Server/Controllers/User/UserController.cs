@@ -31,5 +31,14 @@ namespace ISAProjekat23.Server.Controllers
         //{
         //    throw new NotImplementedException();
         //}
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<User> Login([FromBody]User potentialUser)
+        {
+            User user;
+            user = await _userRepository.GetUser(potentialUser);
+            return user;
+        }
     }
 }

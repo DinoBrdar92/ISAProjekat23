@@ -1,0 +1,41 @@
+﻿@page "/register"
+
+@using ISAProjekat23.Model.Domain;
+
+<PageTitle>Register</PageTitle>
+
+<div class="container">
+    <div class="row registration-form">
+        <div class="col-md-8">
+            <form>
+                <h2 class="mb-4">Register</h2>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+
+                <!-- Add other fields here -->
+                <!-- ...
+                     ...
+                     ...
+                -->
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+@code {
+
+}

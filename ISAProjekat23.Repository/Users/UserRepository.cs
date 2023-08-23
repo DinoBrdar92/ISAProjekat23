@@ -30,5 +30,31 @@ namespace ISAProjekat23.Repository.Users
             })
             .ToListAsync();
         }
+
+        public async Task<User> GetUser(User potentialUser)
+        {
+            // moze i Where
+            var userDto = await databaseContext.Users.FirstOrDefaultAsync(u => 
+                u.Email == potentialUser.Email && u.Password == potentialUser.Password);
+
+            if (userDto != null)
+            {
+                User user = new User()
+                {
+                    Username = userDto.Username,
+                    FirstName = userDto.FirstName,
+                    LastName = userDto.LastName,
+                    Email = userDto.Email,
+                    Password = userDto.Password
+                };
+
+                return user;
+
+            } 
+            else
+            {
+                return null;
+            }
+        }
     }
 }

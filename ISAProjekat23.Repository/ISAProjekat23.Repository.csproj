@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ISAProjekat23.Database\ISAProjekat23.Database.csproj" />
     <ProjectReference Include="..\ISAProjekat23.Model\ISAProjekat23.Model.csproj" />
   </ItemGroup>
