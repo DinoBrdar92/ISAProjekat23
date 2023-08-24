@@ -50,5 +50,7 @@ namespace ISAProjekat23.Model.Entities
 
         public string? Workplace { get; set; }
 
+        public bool IsSurveyed { get; set;}
+
     }
 }

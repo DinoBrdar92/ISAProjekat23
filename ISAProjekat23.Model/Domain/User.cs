@@ -50,5 +50,7 @@ namespace ISAProjekat23.Model.Domain
         public string? Occupation { get; set; }
 
         public string? Workplace { get; set; }
+
+        public bool IsSurveyed { get; set; }
     }
 }

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISAProjekat23.Model", "ISAP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISAProjekat23.Repository", "ISAProjekat23.Repository\ISAProjekat23.Repository.csproj", "{0227B48D-7414-4FA9-8865-60599812EA88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISAProjekat23.Client", "ISAProjekat23.Client\ISAProjekat23.Client.csproj", "{6C473895-7A37-4D02-A0E0-0B9C3F1BDF95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISAProjekat23.Client", "ISAProjekat23.Client\ISAProjekat23.Client.csproj", "{6C473895-7A37-4D02-A0E0-0B9C3F1BDF95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
