@@ -40,5 +40,14 @@ namespace ISAProjekat23.Server.Controllers
             user = await _userRepository.GetUser(potentialUser);
             return user;
         }
+
+        [HttpPost]
+        [Route("Register")]
+        public async Task<User> Register([FromBody]User potentialNewUser)
+        {
+            User user;
+            user = await _userRepository.SetUser(potentialNewUser);
+            return user;
+        }
     }
 }

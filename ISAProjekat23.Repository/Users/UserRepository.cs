@@ -64,5 +64,11 @@ namespace ISAProjekat23.Repository.Users
                 return null;
             }
         }
+
+        public async Task<User> SetUser(User potentialNewUser)
+        {
+            //TODO: povući listu mejlova i proveriti da li mejl potencijalnog novog korisnika već postoji u bazi
+            return null;
+        }
     }
 }
