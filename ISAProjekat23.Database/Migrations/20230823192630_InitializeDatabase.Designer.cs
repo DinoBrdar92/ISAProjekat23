@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ISAProjekat23.Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230822212420_addPasswordToUser")]
-    partial class addPasswordToUser
+    [Migration("20230823192630_InitializeDatabase")]
+    partial class InitializeDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,15 @@ namespace ISAProjekat23.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("City")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -36,17 +45,32 @@ namespace ISAProjekat23.Database.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("LastName")
+                    b.Property<byte>("Gender")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<string>("JMBG")
                         .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar(13)");
+
+                    b.Property<string>("LastName")
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Occupation")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext");
+
+                    b.Property<byte>("Role")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<string>("Workplace")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

@@ -16,17 +16,39 @@ namespace ISAProjekat23.Model.Entities
         public int Id { get; set; }
 
         [Required]
-        public string Username { get; set; }
-
-        [MaxLength(100)]
-        public string FirstName { get; set; }
-
-        [MaxLength(100)]
-        public string LastName { get; set; }
-        
         public string Email { get; set; }
 
         [Required]
         public string Password { get; set; }
+
+        [Required]
+        public byte Role { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public string FirstName { get; set; }
+
+        [MaxLength(100)]
+        public string? LastName { get; set; }
+
+        public string? Address { get; set; }
+
+        public string? City { get; set; }
+
+        public string? Country { get; set; }
+
+        public string? Phone { get; set; }
+
+        [Required]
+        [MinLength(13)]
+        [MaxLength(13)]
+        public string JMBG { get; set; }
+
+        public byte Gender { get; set; }
+
+        public string? Occupation { get; set; }
+
+        public string? Workplace { get; set; }
+
     }
 }

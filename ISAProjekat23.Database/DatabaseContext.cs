@@ -23,7 +23,7 @@ namespace ISAProjekat23.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=NodiDarbr3466");
+            optionsBuilder.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=asd123");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,7 +31,6 @@ namespace ISAProjekat23.Database
             //var user1 = new UserDto()
             //{
             //    Id = 1,
-            //    Username = "User1",
             //    FirstName = "User1",
             //    LastName = "User1",
             //    Email = "User1",
@@ -40,7 +39,6 @@ namespace ISAProjekat23.Database
             //var user2 = new UserDto()
             //{
             //    Id = 2,
-            //    Username = "User2",
             //    FirstName = "User2",
             //    LastName = "User2",
             //    Email = "User2",
@@ -49,7 +47,6 @@ namespace ISAProjekat23.Database
             //var user3 = new UserDto()
             //{
             //    Id = 3,
-            //    Username = "User3",
             //    FirstName = "User3",
             //    LastName = "User3",
             //    Email = "User3",

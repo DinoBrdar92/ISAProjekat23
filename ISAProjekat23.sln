@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISAProjekat23.Client", "ISAProjekat23\ISAProjekat23.Client.csproj", "{0F77CBA9-A38C-4553-AE91-F621975017D6}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISAProjekat23.Server", "ISAProjekat23.Server\ISAProjekat23.Server.csproj", "{4BD569FB-1BD3-4ACA-9E9D-74F045903B5C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISAProjekat23.Database", "ISAProjekat23.Database\ISAProjekat23.Database.csproj", "{7A916FBB-5FF1-4359-A404-E7A7A8E7F9D8}"
@@ -13,16 +11,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISAProjekat23.Model", "ISAP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISAProjekat23.Repository", "ISAProjekat23.Repository\ISAProjekat23.Repository.csproj", "{0227B48D-7414-4FA9-8865-60599812EA88}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISAProjekat23.Client", "ISAProjekat23.Client\ISAProjekat23.Client.csproj", "{6C473895-7A37-4D02-A0E0-0B9C3F1BDF95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0F77CBA9-A38C-4553-AE91-F621975017D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F77CBA9-A38C-4553-AE91-F621975017D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F77CBA9-A38C-4553-AE91-F621975017D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F77CBA9-A38C-4553-AE91-F621975017D6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4BD569FB-1BD3-4ACA-9E9D-74F045903B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BD569FB-1BD3-4ACA-9E9D-74F045903B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BD569FB-1BD3-4ACA-9E9D-74F045903B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{0227B48D-7414-4FA9-8865-60599812EA88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0227B48D-7414-4FA9-8865-60599812EA88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0227B48D-7414-4FA9-8865-60599812EA88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C473895-7A37-4D02-A0E0-0B9C3F1BDF95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C473895-7A37-4D02-A0E0-0B9C3F1BDF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C473895-7A37-4D02-A0E0-0B9C3F1BDF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C473895-7A37-4D02-A0E0-0B9C3F1BDF95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

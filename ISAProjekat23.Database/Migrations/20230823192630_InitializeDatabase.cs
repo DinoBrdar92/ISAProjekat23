@@ -20,10 +20,19 @@ namespace ISAProjekat23.Database.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Username = table.Column<string>(type: "longtext", nullable: false),
+                    Email = table.Column<string>(type: "longtext", nullable: false),
+                    Password = table.Column<string>(type: "longtext", nullable: false),
+                    Role = table.Column<byte>(type: "tinyint unsigned", nullable: false),
                     FirstName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "longtext", nullable: false)
+                    LastName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    Address = table.Column<string>(type: "longtext", nullable: true),
+                    City = table.Column<string>(type: "longtext", nullable: true),
+                    Country = table.Column<string>(type: "longtext", nullable: true),
+                    Phone = table.Column<string>(type: "longtext", nullable: true),
+                    JMBG = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false),
+                    Gender = table.Column<byte>(type: "tinyint unsigned", nullable: false),
+                    Occupation = table.Column<string>(type: "longtext", nullable: true),
+                    Workplace = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
                 {

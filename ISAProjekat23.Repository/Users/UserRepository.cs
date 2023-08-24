@@ -23,15 +23,24 @@ namespace ISAProjekat23.Repository.Users
             return await databaseContext.Users.Select(u => new User()
             {
                 Id = u.Id,
-                Username = u.Username,
+                Email = u.Email,
+                Password = u.Password,
+                Role = (User.UserRole)u.Role,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
-                Email = u.Email
+                Address = u.Address,
+                City = u.City,
+                Country = u.Country,
+                Phone = u.Phone,
+                JMBG = u.JMBG,
+                Gender = (User.UserGender)u.Gender,
+                Occupation = u.Occupation,
+                Workplace = u.Workplace
             })
             .ToListAsync();
         }
 
-        public async Task<User> GetUser(User potentialUser)
+        public async Task<User?> GetUser(User potentialUser)
         {
             // moze i Where
             var userDto = await databaseContext.Users.FirstOrDefaultAsync(u => 
@@ -41,11 +50,10 @@ namespace ISAProjekat23.Repository.Users
             {
                 User user = new User()
                 {
-                    Username = userDto.Username,
+                    Email = userDto.Email,
+                    Password = userDto.Password,
                     FirstName = userDto.FirstName,
                     LastName = userDto.LastName,
-                    Email = userDto.Email,
-                    Password = userDto.Password
                 };
 
                 return user;
