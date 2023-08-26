@@ -62,11 +62,11 @@ namespace ISAProjekat23.Server.Controllers
                     new ClaimsPrincipal(claimsIdentity),
                     new AuthenticationProperties());
 
-                return Ok(true);
+                return Ok(user);
             }
             else
             {
-                return Ok(false);
+                return Ok(null);
             }
         }
 

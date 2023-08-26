@@ -109,6 +109,7 @@ namespace ISAProjekat23.Repository.Users
         {
             User user = new User()
             {
+                Id = userDto.Id,
                 Email = userDto.Email,
                 Password = userDto.Password,
                 Role = (EUserRole)userDto.Role,
@@ -133,6 +134,7 @@ namespace ISAProjekat23.Repository.Users
         {
             UserDto userDto = new UserDto()
             {
+                Id = user.Id,
                 Email = user.Email,
                 Password = user.Password,
                 Role = (byte)user.Role,

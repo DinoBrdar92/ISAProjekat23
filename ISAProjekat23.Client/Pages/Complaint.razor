@@ -1,28 +1,42 @@
 ﻿@page "/complaint"
 
+@using ISAProjekat23.Client.Services;
+@using ISAProjekat23.Model.Domain;
+
+@inject HttpClient Http
+@inject UserService userService;
+@inject ILocalStorageService LocalStorage
+
 <div class="container mt-5">
     <h2>File a Complaint</h2>
     <form>
         <div class="mb-3">
             <label for="complaintType" class="form-label">Complaint Type</label>
-            <select class="form-select" id="complaintType" required>
+            <!--<select @bind="@complaint.ComplaintObject" class="form-select" id="complaintType" required>
                 <option value="" disabled selected>Select complaint type</option>
-                <option value="doctor">Doctor</option>
-                <option value="medicalCenter">Medical Center</option>
-            </select>
+                <option value="0">Doctor</option>
+                <option value="1">Medical Center</option>
+            </select>-->
         </div>
         <div class="mb-3">
             <label for="subject" class="form-label">Subject</label>
-            <input type="text" class="form-control" id="subject" required>
+            <input @bind="@complaint.Subject" type="text" class="form-control" id="subject" required>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" rows="5" required></textarea>
+            <textarea @bind="@complaint.Description" class="form-control" id="description" rows="5" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" @onclick="async () => await setComplaintUser()">Submit</button>
     </form>
 </div>
 
 @code {
+    ISAProjekat23.Model.Domain.Complaint complaint = new ISAProjekat23.Model.Domain.Complaint();
 
+    private async Task setComplaintUser()
+    {
+        complaint.User = await LocalStorage.GetItemAsync<User>("currentUser");
+        complaint.ComplaintObject = Model.Domain.Enums.EComplaintObject.Doctor;
+        var response = await Http.PostAsJsonAsync("https://localhost:7241/Complaint", complaint);
+    }
 }

@@ -1,4 +1,5 @@
 using ISAProjekat23.Database;
+using ISAProjekat23.Repository.Complaints;
 using ISAProjekat23.Repository.Users;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IComplaintsRepository, ComplaintsRepository>();
+
 
 builder.Services.AddAuthentication("MyAuthScheme")
     .AddCookie("MyAuthScheme", options => {

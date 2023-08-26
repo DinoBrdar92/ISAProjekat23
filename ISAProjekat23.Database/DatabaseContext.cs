@@ -20,6 +20,7 @@ namespace ISAProjekat23.Database
         
         //entities
         public DbSet<UserDto> Users { get; set; }
+        public DbSet<ComplaintDto> Complaints { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

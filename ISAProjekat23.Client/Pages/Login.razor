@@ -1,10 +1,13 @@
 ﻿@page "/login"
 
 @using ISAProjekat23.Model.Domain;
+@using ISAProjekat23.Client.Services;
 
-@inject HttpClient Http
 @inject IJSRuntime Js
+@inject UserService userService;
+@inject HttpClient Http
 @inject NavigationManager NavManager
+@inject ILocalStorageService LocalStorage
 
 <PageTitle>Login</PageTitle>
 
@@ -34,9 +37,10 @@
     public async Task LoginUser()
     {
         var response = await Http.PostAsJsonAsync("https://localhost:7241/User/Login", loginCred);
-        var resp = await response.Content.ReadFromJsonAsync<bool>();
-        if (resp)
+        var user = await response.Content.ReadFromJsonAsync<User?>();
+        if (user != null)
         {
+            await LocalStorage.SetItemAsync("currentUser", user);
             NavManager.NavigateTo("/");
         }
         else

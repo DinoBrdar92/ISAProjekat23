@@ -23,7 +23,7 @@ namespace ISAProjekat23.Model.Entities
         public UserDto User { get; set; } = null!;
 
         [Required]
-        public string UserId { get; set; } = null!;
+        public int UserId { get; set; }
 
         [Required]
         public bool ComplaintObject { get; set; }
