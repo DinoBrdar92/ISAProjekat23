@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ISAProjekat23.Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230823192630_InitializeDatabase")]
+    [Migration("20230826193028_InitializeDatabase")]
     partial class InitializeDatabase
     {
         /// <inheritdoc />
@@ -48,6 +48,9 @@ namespace ISAProjekat23.Database.Migrations
                     b.Property<byte>("Gender")
                         .HasColumnType("tinyint unsigned");
 
+                    b.Property<bool>("IsSurveyed")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("JMBG")
                         .IsRequired()
                         .HasMaxLength(13)
@@ -69,6 +72,9 @@ namespace ISAProjekat23.Database.Migrations
 
                     b.Property<byte>("Role")
                         .HasColumnType("tinyint unsigned");
+
+                    b.Property<ushort>("Status")
+                        .HasColumnType("smallint unsigned");
 
                     b.Property<string>("Workplace")
                         .HasColumnType("longtext");

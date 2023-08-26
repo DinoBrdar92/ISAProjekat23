@@ -32,7 +32,9 @@ namespace ISAProjekat23.Database.Migrations
                     JMBG = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false),
                     Gender = table.Column<byte>(type: "tinyint unsigned", nullable: false),
                     Occupation = table.Column<string>(type: "longtext", nullable: true),
-                    Workplace = table.Column<string>(type: "longtext", nullable: true)
+                    Workplace = table.Column<string>(type: "longtext", nullable: true),
+                    IsSurveyed = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Status = table.Column<ushort>(type: "smallint unsigned", nullable: false)
                 },
                 constraints: table =>
                 {

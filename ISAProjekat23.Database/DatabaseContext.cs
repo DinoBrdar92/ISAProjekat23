@@ -23,7 +23,7 @@ namespace ISAProjekat23.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=asd123");
+            optionsBuilder.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=NodiDarbr3466");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

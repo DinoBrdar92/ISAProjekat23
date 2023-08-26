@@ -52,5 +52,7 @@ namespace ISAProjekat23.Model.Entities
 
         public bool IsSurveyed { get; set;} = false;
 
+        public ushort Status { get; set; }
+
     }
 }

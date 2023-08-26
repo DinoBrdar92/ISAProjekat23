@@ -3,6 +3,8 @@
 @using ISAProjekat23.Model.Domain;
 
 @inject HttpClient Http
+@inject IJSRuntime Js
+@inject NavigationManager NavManager
 
 <PageTitle>Login</PageTitle>
 
@@ -13,11 +15,11 @@
                 <h2 class="mb-4">Login</h2>
                 <div class="mb-3">
                     <label for="text" class="form-label">Email address</label>
-                    <input @bind="@user.Email" type="email" class="form-control" id="email" placeholder="Enter your email">
+                    <input @bind="@loginCred.Email" type="email" class="form-control" id="email" placeholder="Enter your email">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input @bind="@user.Password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                    <input @bind="@loginCred.Password" type="password" class="form-control" id="password" placeholder="Enter your password">
                 </div>
                 <button type="button" class="btn btn-primary" @onclick="async () => await LoginUser()">Login</button>
             </form>
@@ -27,14 +29,19 @@
 
 
 @code {
-    private User user = new User();
+    private LoginCredentials loginCred = new LoginCredentials();
 
     public async Task LoginUser()
     {
-        user.FirstName = "";
-        user.LastName = "";
-        var response = await Http.PostAsJsonAsync("https://localhost:7241/User/Login", user);
-        var resp = await response.Content.ReadFromJsonAsync<User>();
-        Console.WriteLine(resp);
+        var response = await Http.PostAsJsonAsync("https://localhost:7241/User/Login", loginCred);
+        var resp = await response.Content.ReadFromJsonAsync<bool>();
+        if (resp)
+        {
+            NavManager.NavigateTo("/");
+        }
+        else
+        {
+            await Js.InvokeVoidAsync("alert", "Wrong credentials or user does not exist.");
+        }
     }
 }

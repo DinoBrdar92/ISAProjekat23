@@ -14,32 +14,32 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="users">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Users
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
+        <div hidden="@IsLoggedIn" class="nav-item px-3">
             <NavLink class="nav-link" href="login">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Login
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div hidden="@IsLoggedIn" class="nav-item px-3">
             <NavLink class="nav-link" href="register">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Register
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div hidden="@(!IsLoggedIn)" class="nav-item px-3">
+            <NavLink class="nav-link" href="users">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Users
+            </NavLink>
+        </div>
+        <div hidden="@(!IsLoggedIn)" class="nav-item px-3">
             <NavLink class="nav-link" href="survey">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Survey
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div hidden="@(!IsLoggedIn)" class="nav-item px-3">
             <NavLink class="nav-link" href="appointments">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Appointments
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div hidden="@(!IsLoggedIn)" class="nav-item px-3">
             <NavLink class="nav-link" href="complaint">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> File a complaint
             </NavLink>
@@ -49,6 +49,9 @@
 
 @code {
     private bool collapseNavMenu = true;
+
+    [Parameter]
+    public bool IsLoggedIn { get; set; }
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 

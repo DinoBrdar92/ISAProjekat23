@@ -5,7 +5,8 @@ namespace ISAProjekat23.Repository.Users
     public interface IUserRepository
     {
         Task<List<User>> GetAllUsers();
-        Task<User> GetUser(User potentialUser);
-        Task<User> SetUser(User potentialNewUser);
+        Task<User?> GetUser(LoginCredentials loginCred);
+        Task<User?> GetUser(string Id);
+        Task<bool> RegisterUser(User potentialUser);
     }
 }

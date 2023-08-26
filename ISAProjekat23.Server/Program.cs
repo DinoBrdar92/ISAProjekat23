@@ -22,8 +22,20 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+builder.Services.AddAuthentication("MyAuthScheme")
+    .AddCookie("MyAuthScheme", options => {
+        options.LoginPath = "/Login";
+        options.LogoutPath = "/Logout";
+        options.AccessDeniedPath = "/AccessDenied";
+    });
+
+builder.Services.AddHttpContextAccessor();
+
+
 //builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=NodiDarbr3466"));
 builder.Services.AddDbContext<DatabaseContext>();
+
+builder.Services.AddMvc();
 
 var app = builder.Build();
 
@@ -38,7 +50,11 @@ app.UseCors();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllers();
 

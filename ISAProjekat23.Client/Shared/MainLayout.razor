@@ -1,8 +1,12 @@
-﻿@inherits LayoutComponentBase
+﻿@using ISAProjekat23.Model.Domain;
+@inherits LayoutComponentBase
+@inject HttpClient Http
+@inject IJSRuntime Js
+@inject NavigationManager NavManager
 
 <div class="page">
     <div class="sidebar">
-        <NavMenu />
+        <NavMenu IsLoggedIn = "isLoggedIn" />
     </div>
 
     <main>
@@ -15,3 +19,14 @@
         </article>
     </main>
 </div>
+
+@code {
+    bool isLoggedIn = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var response = await Http.GetFromJsonAsync<User?>("https://localhost:7241/User/GetUser");
+        isLoggedIn = response != null;
+    }
+}

@@ -45,6 +45,9 @@ namespace ISAProjekat23.Database.Migrations
                     b.Property<byte>("Gender")
                         .HasColumnType("tinyint unsigned");
 
+                    b.Property<bool>("IsSurveyed")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("JMBG")
                         .IsRequired()
                         .HasMaxLength(13)
@@ -66,6 +69,9 @@ namespace ISAProjekat23.Database.Migrations
 
                     b.Property<byte>("Role")
                         .HasColumnType("tinyint unsigned");
+
+                    b.Property<ushort>("Status")
+                        .HasColumnType("smallint unsigned");
 
                     b.Property<string>("Workplace")
                         .HasColumnType("longtext");

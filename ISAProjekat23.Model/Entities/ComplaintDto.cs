@@ -19,8 +19,13 @@ namespace ISAProjekat23.Model.Entities
 
         public string Description { get; set; } = null!;
 
+        [ForeignKey(nameof(UserId))]
+        public UserDto User { get; set; } = null!;
+
         [Required]
-        [ForeignKey(nameof(Subject))]   //TODO: videti za foreign key
-        public string UserId { get; set; }
+        public string UserId { get; set; } = null!;
+
+        [Required]
+        public bool ComplaintObject { get; set; }
     }
 }

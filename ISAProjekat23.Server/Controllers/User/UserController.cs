@@ -2,6 +2,11 @@ using ISAProjekat23.Model.Domain;
 using ISAProjekat23.Repository.Users;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 
 namespace ISAProjekat23.Server.Controllers
 {
@@ -13,10 +18,13 @@ namespace ISAProjekat23.Server.Controllers
         
         private IUserRepository _userRepository;
 
-        public UserController(ILogger<UserController> logger, IUserRepository userRepository)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public UserController(ILogger<UserController> logger, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _userRepository = userRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet]
@@ -34,20 +42,59 @@ namespace ISAProjekat23.Server.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public async Task<User> Login([FromBody]User potentialUser)
+        public async Task<ActionResult?> Login([FromBody]LoginCredentials loginCred)
         {
-            User user;
-            user = await _userRepository.GetUser(potentialUser);
-            return user;
+            User? user;
+            user = await _userRepository.GetUser(loginCred);
+
+            if (user != null)
+            {
+                //TODO: nakaciti cookie na sesiju
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                };
+
+                var claimsIdentity = new ClaimsIdentity(claims, "MyAuthScheme");
+
+                await _httpContextAccessor.HttpContext.SignInAsync("MyAuthScheme",
+                    new ClaimsPrincipal(claimsIdentity),
+                    new AuthenticationProperties());
+
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(false);
+            }
         }
 
         [HttpPost]
         [Route("Register")]
-        public async Task<User> Register([FromBody]User potentialNewUser)
+        public async Task<bool> Register([FromBody]User potentialUser)
         {
-            User user;
-            user = await _userRepository.SetUser(potentialNewUser);
-            return user;
+            bool operationSuccessful;
+            operationSuccessful = await _userRepository.RegisterUser(potentialUser);
+            return operationSuccessful;
+        }
+
+        [HttpGet]
+        [Route("GetUser")]
+        public async Task<User?> GetUser()
+        {
+            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+            {
+                var Id = _httpContextAccessor.HttpContext.User.Identity.Name;
+                User user = await _userRepository.GetUser(Id);
+
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+
         }
     }
 }
