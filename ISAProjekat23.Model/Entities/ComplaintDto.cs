@@ -13,5 +13,14 @@ namespace ISAProjekat23.Model.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Required]
+        public string Subject { get; set; } = null!;
+
+        public string Description { get; set; } = null!;
+
+        [Required]
+        [ForeignKey(nameof(Subject))]   //TODO: videti za foreign key
+        public string UserId { get; set; }
     }
 }

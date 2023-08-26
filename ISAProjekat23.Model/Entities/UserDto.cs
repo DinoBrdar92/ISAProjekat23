@@ -16,17 +16,17 @@ namespace ISAProjekat23.Model.Entities
         public int Id { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public string Email { get; set; } = null!;
 
         [Required]
-        public string Password { get; set; }
+        public string Password { get; set; } = null!;
 
         [Required]
         public byte Role { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = null!;
 
         [MaxLength(100)]
         public string? LastName { get; set; }
@@ -42,7 +42,7 @@ namespace ISAProjekat23.Model.Entities
         [Required]
         [MinLength(13)]
         [MaxLength(13)]
-        public string JMBG { get; set; }
+        public string JMBG { get; set; } = null!;
 
         public byte Gender { get; set; }
 
@@ -50,7 +50,7 @@ namespace ISAProjekat23.Model.Entities
 
         public string? Workplace { get; set; }
 
-        public bool IsSurveyed { get; set;}
+        public bool IsSurveyed { get; set;} = false;
 
     }
 }

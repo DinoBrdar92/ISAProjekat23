@@ -25,13 +25,13 @@ namespace ISAProjekat23.Model.Domain
 
         public int Id { get; set; }
 
-        public string Email { get; set; }
+        public string Email { get; set; } = null!;
 
-        public string Password { get; set; }
+        public string Password { get; set; } = null!;
 
         public UserRole Role { get; set; }
 
-        public string FirstName { get; set; }
+        public string FirstName { get; set; } = null!;
 
         public string? LastName { get; set; }
 
@@ -43,7 +43,7 @@ namespace ISAProjekat23.Model.Domain
 
         public string? Phone { get; set; }
 
-        public string JMBG { get; set; }
+        public string JMBG { get; set; } = null!;
 
         public UserGender Gender { get; set; }
 

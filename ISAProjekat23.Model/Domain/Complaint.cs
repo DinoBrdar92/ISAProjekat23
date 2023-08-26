@@ -8,6 +8,8 @@ namespace ISAProjekat23.Model.Domain
 {
     public class Complaint
     {
+        public string Subject { get; set; } = null!;
 
+        public string Description { get; set; } = null!;
     }
 }

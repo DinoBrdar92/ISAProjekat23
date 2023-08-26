@@ -1,0 +1,28 @@
+﻿@page "/complaint"
+
+<div class="container mt-5">
+    <h2>File a Complaint</h2>
+    <form>
+        <div class="mb-3">
+            <label for="complaintType" class="form-label">Complaint Type</label>
+            <select class="form-select" id="complaintType" required>
+                <option value="" disabled selected>Select complaint type</option>
+                <option value="doctor">Doctor</option>
+                <option value="medicalCenter">Medical Center</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" class="form-control" id="subject" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@code {
+
+}
