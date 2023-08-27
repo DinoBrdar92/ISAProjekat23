@@ -30,5 +30,12 @@ namespace ISAProjekat23.Server.Controllers.Appointment
         {
             return await _appointmentsRepository.GetAllAppointments();
         }
+
+        [HttpPost]
+        [Route("AddAppointment")]
+        public async Task<bool> AddAppointment([FromBody] Model.Domain.Appointment appointment)
+        {
+            return await _appointmentsRepository.AddAppointment(appointment);
+        }
     }
 }

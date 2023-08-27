@@ -9,6 +9,7 @@ namespace ISAProjekat23.Repository.Appointments
 {
     public interface IAppointmentsRepository
     {
+        Task<bool> AddAppointment(Appointment appointment);
         Task<List<Appointment>> GetAllAppointments();
     }
 }

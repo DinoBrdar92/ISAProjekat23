@@ -31,10 +31,10 @@
                         <td>@appointment.Duration</td>
                         @if (appointment.ReservedBy == null)
                         {
-                            <td><button class="btn btn-primary">Reserve</button></td>
+                            <td><button class="btn btn-primary" @onclick="async () => await ReserveAppointment()">Reserve</button></td>
                         }
                         else if (appointment.ReservedBy.Equals(loggedInUser)) {
-                            <td><button class="btn btn-secondary">Cancel</button></td>
+                            <td><button class="btn btn-secondary" @onclick="async () => await CancelAppointment()">Cancel</button></td>
                         }
                         
                     </tr>
@@ -82,5 +82,15 @@
     {
         loggedInUser = Ijs.GetUserMethod();
         appointments = await Http.GetFromJsonAsync<List<Appointment>>("https://localhost:7241/User/GetAllAppointments");
+    }
+
+    private async Task ReserveAppointment()
+    {
+        
+    }
+
+    private async Task CancelAppointment()
+    {
+
     }
 }
