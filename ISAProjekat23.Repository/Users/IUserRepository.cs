@@ -6,7 +6,7 @@ namespace ISAProjekat23.Repository.Users
     {
         Task<List<User>> GetAllUsers();
         Task<User?> GetUser(LoginCredentials loginCred);
-        Task<User?> GetUser(string Id);
+        Task<User?> GetUser(int Id);
         Task<bool> RegisterUser(User potentialUser);
     }
 }

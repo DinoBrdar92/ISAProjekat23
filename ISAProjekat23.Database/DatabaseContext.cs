@@ -21,10 +21,11 @@ namespace ISAProjekat23.Database
         //entities
         public DbSet<UserDto> Users { get; set; }
         public DbSet<ComplaintDto> Complaints { get; set; }
+        public DbSet<AppointmentDto> Appointments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=NodiDarbr3466");
+            optionsBuilder.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=asd123");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

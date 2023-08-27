@@ -85,7 +85,7 @@ namespace ISAProjekat23.Server.Controllers
         {
             if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
-                var Id = _httpContextAccessor.HttpContext.User.Identity.Name;
+                int Id = Int32.Parse(_httpContextAccessor.HttpContext.User.Identity.Name);
                 User user = await _userRepository.GetUser(Id);
 
                 return user;

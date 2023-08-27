@@ -1,5 +1,13 @@
 ﻿@page "/appointments"
 
+@using ISAProjekat23.Model.Domain;
+@using ISAProjekat23.Client.Services;
+
+@inject HttpClient Http
+@inject IUserService Ijs
+
+<PageTitle>Appointments</PageTitle>
+
 <div class="container mt-5">
     <h2>Appointment Schedule</h2>
     <table class="table">
@@ -12,7 +20,27 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+
+            @foreach (var appointment in appointments)
+            {
+                @if (appointment.ReservedBy == null || appointment.ReservedBy.Equals(loggedInUser))
+                {
+                    <tr>
+                        <td>@appointment.Date</td>
+                        <td>@appointment.Time</td>
+                        <td>@appointment.Duration</td>
+                        @if (appointment.ReservedBy == null)
+                        {
+                            <td><button class="btn btn-primary">Reserve</button></td>
+                        }
+                        else if (appointment.ReservedBy.Equals(loggedInUser)) {
+                            <td><button class="btn btn-secondary">Cancel</button></td>
+                        }
+                        
+                    </tr>
+                }
+            }
+            <!--<tr>
                 <td>15/06/2023</td>
                 <td>10:00</td>
                 <td>30</td>
@@ -41,11 +69,18 @@
                 <td>16:00</td>
                 <td>45</td>
                 <td><button class="btn btn-primary">Reserve</button></td>
-            </tr>
+            </tr>-->
         </tbody>
     </table>
 </div>
 
 @code {
+    private User? loggedInUser;
+    private List<Appointment> appointments;
 
+    protected override async Task OnInitializedAsync()
+    {
+        loggedInUser = Ijs.GetUserMethod();
+        appointments = await Http.GetFromJsonAsync<List<Appointment>>("https://localhost:7241/User/GetAllAppointments");
+    }
 }

@@ -1,0 +1,24 @@
+﻿@page "/addAppointment"
+
+<div class="container mt-5">
+    <h2>Create Appointment</h2>
+    <form>
+        <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" class="form-control" id="date" required>
+        </div>
+        <div class="mb-3">
+            <label for="time" class="form-label">Time</label>
+            <input type="time" class="form-control" id="time" required>
+        </div>
+        <div class="mb-3">
+            <label for="duration" class="form-label">Duration (minutes)</label>
+            <input type="number" class="form-control" id="duration" min="5" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Appointment</button>
+    </form>
+</div>
+
+@code {
+
+}

@@ -61,10 +61,10 @@ namespace ISAProjekat23.Repository.Users
             }
         }
 
-        public async Task<User?> GetUser(string Id)
+        public async Task<User?> GetUser(int Id)
         {
             var userDto = await databaseContext.Users.FirstOrDefaultAsync(u =>
-                u.Id.ToString() == Id);
+                u.Id == Id);
 
             if ( userDto != null )
             {

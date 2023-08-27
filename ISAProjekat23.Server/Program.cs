@@ -1,6 +1,7 @@
 using ISAProjekat23.Database;
 using ISAProjekat23.Repository.Complaints;
 using ISAProjekat23.Repository.Users;
+using ISAProjekat23.Repository.Appointments;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IComplaintsRepository, ComplaintsRepository>();
+builder.Services.AddScoped<IAppointmentsRepository, AppointmentsRepository>();
 
 
 builder.Services.AddAuthentication("MyAuthScheme")

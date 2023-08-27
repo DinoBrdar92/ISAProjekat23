@@ -8,19 +8,19 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using ISAProjekat23.Repository.Complaints;
 
-namespace ISAProjekat23.Server.Controllers
+namespace ISAProjekat23.Server.Controllers.Complaint
 {
     [ApiController]
     [Route("[controller]")]
     public class ComplaintController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
-        
+        private readonly ILogger<ComplaintController> _logger;
+
         private IComplaintsRepository _complaintsRepository;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ComplaintController(ILogger<UserController> logger, IComplaintsRepository complaintsRepository, IHttpContextAccessor httpContextAccessor)
+        public ComplaintController(ILogger<ComplaintController> logger, IComplaintsRepository complaintsRepository, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _complaintsRepository = complaintsRepository;
@@ -28,7 +28,7 @@ namespace ISAProjekat23.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> CreateComplaint([FromBody]Complaint complaint)
+        public async Task<bool> CreateComplaint([FromBody] Model.Domain.Complaint complaint)
         {
             return await _complaintsRepository.AddComplaint(complaint);
         }
