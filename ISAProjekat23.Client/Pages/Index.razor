@@ -5,10 +5,11 @@
 @inherits ComponentBase
 
 @inject HttpClient Http
+@inject ILocalStorageService LocalStorage
 
 <PageTitle>Index</PageTitle>
 
-<h1>Welcome to Medical center!</h1>
+<h1>Welcome to Medical center@(!name.Equals("") ? ", " + name : "")!</h1>
 
 We treat your blood like vampires
 
@@ -43,3 +44,16 @@ We treat your blood like vampires
 </div>
 
 <SurveyPrompt Title="New to our medical center?" />
+
+@code {
+    string name = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await LocalStorage.GetItemAsync<User>("currentUser");
+        if (user != null)
+        {
+            name = user.FirstName;
+        }
+    }
+}

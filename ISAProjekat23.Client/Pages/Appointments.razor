@@ -4,6 +4,7 @@
 
 @inject HttpClient Http
 @inject ILocalStorageService LocalStorage
+@inject NavigationManager NavManager
 
 <PageTitle>Appointments</PageTitle>
 
@@ -28,11 +29,11 @@
                         <td>@appointment.Duration</td>
                         @if (appointment.ReservedBy == null)
                         {
-                            <td><button class="btn btn-primary" @onclick="async () => await ReserveAppointment()">Reserve</button></td>
+                            <td><button class="btn btn-primary" @onclick="async () => await ReserveAppointment(appointment.Id)">Reserve</button></td>
                         }
                         else if (appointment.ReservedBy.Id == loggedInUser?.Id)
                         {
-                            <td><button class="btn btn-danger" @onclick="async () => await CancelAppointment()">Cancel</button></td>
+                            <td><button class="btn btn-danger" @onclick="async () => await CancelAppointment(appointment.Id)">Cancel</button></td>
                         }
                         
                     </tr>
@@ -82,13 +83,15 @@
         appointments = await Http.GetFromJsonAsync<List<Appointment>>("https://localhost:7241/Appointment/GetAllAppointments");
     }
 
-    private async Task ReserveAppointment()
+    private async Task ReserveAppointment(int appointmentId)
     {
-        
+        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Appointment/ReserveAppointment?appointmentId={appointmentId}&userId={loggedInUser?.Id}");
+        NavManager.NavigateTo("/appointments", true);
     }
 
-    private async Task CancelAppointment()
+    private async Task CancelAppointment(int appointmentId)
     {
-
+        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Appointment/CancelAppointment?appointmentId={appointmentId}");
+        NavManager.NavigateTo("/appointments", true);
     }
 }

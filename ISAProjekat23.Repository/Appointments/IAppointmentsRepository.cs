@@ -11,5 +11,7 @@ namespace ISAProjekat23.Repository.Appointments
     {
         Task<bool> AddAppointment(Appointment appointment);
         Task<List<Appointment>> GetAllAppointments();
+        Task<bool> ReserveAppointment(int appointmentId, int userId);
+        Task<bool> CancelAppointment(int appointmentId);
     }
 }

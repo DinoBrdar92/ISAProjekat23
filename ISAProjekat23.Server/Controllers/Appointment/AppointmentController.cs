@@ -40,5 +40,21 @@ namespace ISAProjekat23.Server.Controllers.Appointment
         {
             return await _appointmentsRepository.AddAppointment(appointment);
         }
+
+        [Authorize]
+        [HttpGet]
+        [Route("ReserveAppointment")]
+        public async Task<bool> ReserveAppointment([FromQuery]int appointmentId, [FromQuery]int userId)
+        {
+            return await _appointmentsRepository.ReserveAppointment(appointmentId, userId);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("CancelAppointment")]
+        public async Task<bool> CancelAppointment([FromQuery] int appointmentId)
+        {
+            return await _appointmentsRepository.CancelAppointment(appointmentId);
+        }
     }
 }

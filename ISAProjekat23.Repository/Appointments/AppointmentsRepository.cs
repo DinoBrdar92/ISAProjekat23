@@ -26,6 +26,7 @@ namespace ISAProjekat23.Repository.Appointments
                 
             return apps.Select(a => new Appointment()
                     {
+                        Id = a.Id,
                         Start = a.Start,
                         Duration = a.Duration,
                         ReservedBy = UserRepository.CreateDomainFromEntity(a.User)
@@ -41,10 +42,28 @@ namespace ISAProjekat23.Repository.Appointments
             return true;
         }
 
+        public async Task<bool> ReserveAppointment(int appointmentId, int userId)
+        {
+            var appointment = await databaseContext.Appointments.FirstOrDefaultAsync(a => a.Id == appointmentId);
+            appointment.ReservedBy = userId;
+            await databaseContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> CancelAppointment(int appointmentId)
+        {
+            var appointment = await databaseContext.Appointments.FirstOrDefaultAsync(a => a.Id == appointmentId);
+            appointment.ReservedBy = null;
+            await databaseContext.SaveChangesAsync();
+            return true;
+        }
+
+
         public AppointmentDto CreateEntityFromDomain(Appointment appointment)
         {
             AppointmentDto appointmentDto = new AppointmentDto()
             {
+                Id = appointment.Id,
                 Start = appointment.Start,
                 Duration = appointment.Duration,
                 ReservedBy = appointment.ReservedBy?.Id,
@@ -58,6 +77,7 @@ namespace ISAProjekat23.Repository.Appointments
         {
             Appointment appointment = new Appointment()
             {
+                Id = appointmentDto.Id,
                 Start = appointmentDto.Start,
                 Duration = appointmentDto.Duration,
                 //TODO: nacin da preko Id-ja dobijem User-a

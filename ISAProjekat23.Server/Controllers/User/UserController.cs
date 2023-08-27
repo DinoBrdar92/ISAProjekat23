@@ -99,6 +99,7 @@ namespace ISAProjekat23.Server.Controllers
 
         }
 
+
         [HttpGet]
         [Route("LogOut")]
         public async Task LogOut()

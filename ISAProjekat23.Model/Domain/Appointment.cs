@@ -8,6 +8,8 @@ namespace ISAProjekat23.Model.Domain
 {
     public class Appointment
     {
+        public int Id { get; set; }
+
         public DateTime Start { get; set; }
 
         public ushort Duration { get; set; }
