@@ -33,7 +33,7 @@
                         }
                         else if (appointment.ReservedBy.Id == loggedInUser?.Id)
                         {
-                            <td><button class="btn btn-danger" @onclick="async () => await CancelAppointment(appointment.Id)">Cancel</button></td>
+                            <td><button class="btn btn-danger" @onclick="async () => await CancelAppointment(appointment.Id)" disabled="@IsLessThan24h(appointment.Start)">Cancel</button></td>
                         }
                         
                     </tr>
@@ -93,5 +93,10 @@
     {
         await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Appointment/CancelAppointment?appointmentId={appointmentId}");
         NavManager.NavigateTo("/appointments", true);
+    }
+
+    private bool IsLessThan24h(DateTime start)
+    {
+        return (start - DateTime.Now).TotalHours < 24;
     }
 }
