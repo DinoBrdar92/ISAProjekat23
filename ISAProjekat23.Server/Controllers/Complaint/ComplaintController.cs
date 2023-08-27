@@ -27,6 +27,7 @@ namespace ISAProjekat23.Server.Controllers.Complaint
             _httpContextAccessor = httpContextAccessor;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<bool> CreateComplaint([FromBody] Model.Domain.Complaint complaint)
         {

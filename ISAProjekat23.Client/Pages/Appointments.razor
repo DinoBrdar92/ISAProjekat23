@@ -1,10 +1,9 @@
 ﻿@page "/appointments"
 
 @using ISAProjekat23.Model.Domain;
-@using ISAProjekat23.Client.Services;
 
 @inject HttpClient Http
-@inject IUserService Ijs
+@inject ILocalStorageService LocalStorage
 
 <PageTitle>Appointments</PageTitle>
 
@@ -13,8 +12,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Time</th>
+                <th>When</th>
                 <th>Duration (minutes)</th>
                 <th>Actions</th>
             </tr>
@@ -23,18 +21,18 @@
 
             @foreach (var appointment in appointments)
             {
-                @if (appointment.ReservedBy == null || appointment.ReservedBy.Equals(loggedInUser))
+                @if (appointment.ReservedBy == null || (appointment.ReservedBy.Id == loggedInUser?.Id))
                 {
                     <tr>
-                        <td>@appointment.Date</td>
-                        <td>@appointment.Time</td>
+                        <td>@appointment.Start</td>
                         <td>@appointment.Duration</td>
                         @if (appointment.ReservedBy == null)
                         {
                             <td><button class="btn btn-primary" @onclick="async () => await ReserveAppointment()">Reserve</button></td>
                         }
-                        else if (appointment.ReservedBy.Equals(loggedInUser)) {
-                            <td><button class="btn btn-secondary" @onclick="async () => await CancelAppointment()">Cancel</button></td>
+                        else if (appointment.ReservedBy.Id == loggedInUser?.Id)
+                        {
+                            <td><button class="btn btn-danger" @onclick="async () => await CancelAppointment()">Cancel</button></td>
                         }
                         
                     </tr>
@@ -80,8 +78,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        loggedInUser = Ijs.GetUserMethod();
-        appointments = await Http.GetFromJsonAsync<List<Appointment>>("https://localhost:7241/User/GetAllAppointments");
+        loggedInUser = await LocalStorage.GetItemAsync<User>("currentUser");
+        appointments = await Http.GetFromJsonAsync<List<Appointment>>("https://localhost:7241/Appointment/GetAllAppointments");
     }
 
     private async Task ReserveAppointment()

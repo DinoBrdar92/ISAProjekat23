@@ -128,7 +128,6 @@
         {
             var response = await Http.PostAsJsonAsync("https://localhost:7241/User/Register", user);
             var resp = await response.Content.ReadFromJsonAsync<bool>();
-            Console.WriteLine(resp);
 
             if (resp)
             {

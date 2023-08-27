@@ -27,6 +27,7 @@ namespace ISAProjekat23.Server.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("GetAllUsers")]
         public async Task<IEnumerable<User>> GetAllUsers()
@@ -54,6 +55,7 @@ namespace ISAProjekat23.Server.Controllers
                 {
                     new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, "MyAuthScheme");
@@ -95,6 +97,13 @@ namespace ISAProjekat23.Server.Controllers
                 return null;
             }
 
+        }
+
+        [HttpGet]
+        [Route("LogOut")]
+        public async Task LogOut()
+        {
+            await _httpContextAccessor.HttpContext.SignOutAsync("MyAuthScheme");
         }
     }
 }

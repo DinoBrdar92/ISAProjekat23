@@ -6,7 +6,7 @@
 
 <div class="page">
     <div class="sidebar">
-        <NavMenu IsLoggedIn = "isLoggedIn" />
+        <NavMenu />
     </div>
 
     <main>
@@ -25,7 +25,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-
         var response = await Http.GetFromJsonAsync<User?>("https://localhost:7241/User/GetUser");
         isLoggedIn = response != null;
     }

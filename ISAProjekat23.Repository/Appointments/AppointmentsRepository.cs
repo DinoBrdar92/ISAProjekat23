@@ -22,13 +22,15 @@ namespace ISAProjekat23.Repository.Appointments
 
         public async Task<List<Appointment>> GetAllAppointments()
         {
-            return await databaseContext.Appointments.Select(a => new Appointment()
-            {
-                Date = DateOnly.FromDateTime(a.Start),
-                Time = TimeOnly.FromDateTime(a.Start),
-                Duration = a.Duration,
-            })
-                .ToListAsync();
+            var apps = await databaseContext.Appointments.Include(x => x.User).ToListAsync();
+                
+            return apps.Select(a => new Appointment()
+                    {
+                        Start = a.Start,
+                        Duration = a.Duration,
+                        ReservedBy = UserRepository.CreateDomainFromEntity(a.User)
+                    })
+                    .ToList();
         }
 
         public async Task<bool> AddAppointment(Appointment appointment)
@@ -43,7 +45,7 @@ namespace ISAProjekat23.Repository.Appointments
         {
             AppointmentDto appointmentDto = new AppointmentDto()
             {
-                Start = appointment.Date.ToDateTime(appointment.Time),
+                Start = appointment.Start,
                 Duration = appointment.Duration,
                 ReservedBy = appointment.ReservedBy?.Id,
 
@@ -56,8 +58,7 @@ namespace ISAProjekat23.Repository.Appointments
         {
             Appointment appointment = new Appointment()
             {
-                Date = DateOnly.FromDateTime(appointmentDto.Start),
-                Time = TimeOnly.FromDateTime(appointmentDto.Start),
+                Start = appointmentDto.Start,
                 Duration = appointmentDto.Duration,
                 //TODO: nacin da preko Id-ja dobijem User-a
                 //ReservedBy = 

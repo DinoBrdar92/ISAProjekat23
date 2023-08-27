@@ -1,11 +1,12 @@
 ﻿@page "/complaint"
 
-@using ISAProjekat23.Client.Services;
 @using ISAProjekat23.Model.Domain;
 
 @inject HttpClient Http
-@inject UserService userService;
 @inject ILocalStorageService LocalStorage
+@inject HttpClient Http
+@inject IJSRuntime Js
+@inject NavigationManager NavManager
 
 <div class="container mt-5">
     <h2>File a Complaint</h2>
@@ -38,5 +39,16 @@
         complaint.User = await LocalStorage.GetItemAsync<User>("currentUser");
         complaint.ComplaintObject = Model.Domain.Enums.EComplaintObject.Doctor;
         var response = await Http.PostAsJsonAsync("https://localhost:7241/Complaint", complaint);
+        var resp = await response.Content.ReadFromJsonAsync<bool>();
+
+        if (resp)
+        {
+            await Js.InvokeVoidAsync("alert", "Complaint created successfully!");
+            NavManager.NavigateTo("/");
+        }
+        else
+        {
+            await Js.InvokeVoidAsync("alert", "There was some error adding complaint to database.");
+        }
     }
 }

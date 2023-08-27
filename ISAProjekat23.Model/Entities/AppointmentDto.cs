@@ -21,5 +21,8 @@ namespace ISAProjekat23.Model.Entities
         public ushort Duration { get; set; }
 
         public int? ReservedBy { get; set; }    //id korisnika koji je rezervisao (ako termin nije slobodan)
+
+        [ForeignKey(nameof(ReservedBy))]
+        public UserDto User { get; set; }
     }
 }

@@ -8,9 +8,7 @@ namespace ISAProjekat23.Model.Domain
 {
     public class Appointment
     {
-        public DateOnly Date { get; set; }
-
-        public TimeOnly Time { get; set; }
+        public DateTime Start { get; set; }
 
         public ushort Duration { get; set; }
 

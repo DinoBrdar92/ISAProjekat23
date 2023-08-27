@@ -105,8 +105,13 @@ namespace ISAProjekat23.Repository.Users
             return true;
         }
 
-        public User CreateDomainFromEntity(UserDto userDto)
+        public static User? CreateDomainFromEntity(UserDto userDto)
         {
+            if(userDto == null)
+            {
+                return null;
+            }
+
             User user = new User()
             {
                 Id = userDto.Id,
@@ -130,7 +135,7 @@ namespace ISAProjekat23.Repository.Users
             return user;
         }
 
-        public UserDto CreateEntityFromDomain(User user)
+        public static UserDto CreateEntityFromDomain(User user)
         {
             UserDto userDto = new UserDto()
             {

@@ -2,6 +2,7 @@
 using ISAProjekat23.Repository.Appointments;
 using ISAProjekat23.Repository.Complaints;
 using ISAProjekat23.Repository.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ namespace ISAProjekat23.Server.Controllers.Appointment
             _httpContextAccessor = httpContextAccessor;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("GetAllAppointments")]
         public async Task<IEnumerable<Model.Domain.Appointment>> GetAllAppointments()
@@ -31,6 +33,7 @@ namespace ISAProjekat23.Server.Controllers.Appointment
             return await _appointmentsRepository.GetAllAppointments();
         }
 
+        [Authorize]
         [HttpPost]
         [Route("AddAppointment")]
         public async Task<bool> AddAppointment([FromBody] Model.Domain.Appointment appointment)

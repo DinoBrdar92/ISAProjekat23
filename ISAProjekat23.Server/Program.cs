@@ -13,19 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-        policy =>
-        {
-            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();  //set the allowed origin  
-        });
-});
-
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IComplaintsRepository, ComplaintsRepository>();
 builder.Services.AddScoped<IAppointmentsRepository, AppointmentsRepository>();
-
 
 builder.Services.AddAuthentication("MyAuthScheme")
     .AddCookie("MyAuthScheme", options => {
@@ -51,7 +41,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors();
+app.UseCors(x => x
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    //.AllowAnyOrigin()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials()
+);
 
 app.UseHttpsRedirection();
 

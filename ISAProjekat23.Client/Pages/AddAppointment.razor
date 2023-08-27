@@ -1,17 +1,19 @@
 ﻿@page "/addAppointment"
 
 @inject HttpClient Http
+@inject IJSRuntime Js
+@inject NavigationManager NavManager
 
 <div class="container mt-5">
     <h2>Create Appointment</h2>
     <form>
         <div class="mb-3">
             <label for="date" class="form-label">Date</label>
-            <input @bind="@appointment.Date" type="date" class="form-control" id="date" required>
+            <input @bind="@dateOnly" type="date" class="form-control" id="date" required>
         </div>
         <div class="mb-3">
             <label for="time" class="form-label">Time</label>
-            <input @bind="@appointment.Time" type="time" class="form-control" id="time" required>
+            <input @bind="@timeOnly" type="time" class="form-control" id="time" required>
         </div>
         <div class="mb-3">
             <label for="duration" class="form-label">Duration (minutes)</label>
@@ -22,11 +24,26 @@
 </div>
 
 @code {
+    DateOnly dateOnly;
+    TimeOnly timeOnly;
     ISAProjekat23.Model.Domain.Appointment appointment = new ISAProjekat23.Model.Domain.Appointment();
 
     private async Task addAppointment()
     {
-        var response = await Http.PostAsJsonAsync("https://localhost:7241/AddAppointment", appointment);
+        appointment.Start = dateOnly.ToDateTime(timeOnly);
+        var response = await Http.PostAsJsonAsync("https://localhost:7241/Appointment/AddAppointment", appointment);
+        var resp = await response.Content.ReadFromJsonAsync<bool>();
+
+        if (resp)
+        {
+            await Js.InvokeVoidAsync("alert", "Appointment added successfully!");
+            NavManager.NavigateTo("/");
+        }
+        else
+        {
+            await Js.InvokeVoidAsync("alert", "There was some error adding appointment to database.");
+        }
+
     }
 
 }
