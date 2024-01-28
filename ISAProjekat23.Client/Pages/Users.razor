@@ -22,12 +22,9 @@ else
         <thead>Role</thead>
         <thead>First name</thead>
         <thead>Last name</thead>
-        <thead>Address</thead>
         <thead>City</thead>
         <thead>Country</thead>
         <thead>Phone</thead>
-        <thead>JMBG</thead>
-        <thead>Gender</thead>
         <thead>Occupation</thead>
         <thead>Workplace</thead>
     </tr>
@@ -40,12 +37,9 @@ else
         <td>@user.Role</td>
         <td>@user.FirstName</td>
         <td>@user.LastName</td>
-        <td>@user.Address</td>
         <td>@user.City</td>
         <td>@user.Country</td>
         <td>@user.Phone</td>
-        <td>@user.JMBG</td>
-        <td>@user.Gender</td>
         <td>@user.Occupation</td>
         <td>@user.Workplace</td>
     </tr>
@@ -54,7 +48,7 @@ else
 }
 
 @code {    
-    private List<User> users;
+    private List<User>? users;
 
     protected override async Task OnInitializedAsync()
     {

@@ -30,14 +30,13 @@ namespace ISAProjekat23.Repository.Users
                 Role = (EUserRole)u.Role,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
-                Address = u.Address,
                 City = u.City,
                 Country = u.Country,
                 Phone = u.Phone,
-                JMBG = u.JMBG,
-                Gender = (EUserGender)u.Gender,
                 Occupation = u.Occupation,
-                Workplace = u.Workplace
+                Workplace = u.Workplace,
+                Status = (EUserStatus)u.Status,
+                PenaltyPoints = u.PenaltyPoints,
             })
             .ToListAsync();
         }
@@ -87,16 +86,13 @@ namespace ISAProjekat23.Repository.Users
                 Role = 0,
                 FirstName = potentialUser.FirstName,
                 LastName = potentialUser.LastName,
-                Address  = potentialUser.Address,
                 City = potentialUser.City,
                 Country = potentialUser.Country,
                 Phone = potentialUser.Phone,
-                JMBG = potentialUser.JMBG,
-                Gender = (byte)potentialUser.Gender,
                 Occupation  = potentialUser.Occupation,
                 Workplace = potentialUser.Workplace,
-                IsSurveyed = false,
-                Status = 0
+                Status = 0,
+                PenaltyPoints = 0
             };
 
             databaseContext.Users.Add(userDto);
@@ -120,16 +116,13 @@ namespace ISAProjekat23.Repository.Users
                 Role = (EUserRole)userDto.Role,
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
-                Address = userDto.Address,
                 City = userDto.City,
                 Country = userDto.Country,
                 Phone = userDto.Phone,
-                JMBG = userDto.JMBG,
-                Gender = (EUserGender)userDto.Gender,
                 Occupation = userDto.Occupation,
                 Workplace = userDto.Workplace,
-                IsSurveyed = userDto.IsSurveyed,
-                Status = (EUserStatus)userDto.Status
+                Status = (EUserStatus)userDto.Status,
+                PenaltyPoints = userDto.PenaltyPoints
             };
 
             return user;
@@ -145,16 +138,13 @@ namespace ISAProjekat23.Repository.Users
                 Role = (byte)user.Role,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Address = user.Address,
                 City = user.City,
                 Country = user.Country,
                 Phone = user.Phone,
-                JMBG = user.JMBG,
-                Gender = (byte)user.Gender,
                 Occupation = user.Occupation,
                 Workplace = user.Workplace,
-                IsSurveyed = user.IsSurveyed,
-                Status = (ushort)user.Status
+                Status = (ushort)user.Status,
+                PenaltyPoints = user.PenaltyPoints
             };
 
             return userDto;

@@ -14,9 +14,9 @@
         <div class="mb-3">
             <label for="complaintType" class="form-label">Complaint Type</label>
             <select @bind="@complaint.ComplaintObject" class="form-select" id="complaintType" required>
-                <option value="" disabled selected>Select complaint type</option>
-                <option value="0">Doctor</option>
-                <option value="1">Medical Center</option>
+                <option value="" disabled selected>Select complaint target</option>
+                <option value="0">Company</option>
+                <option value="1">Company administrator</option>
             </select>
         </div>
         <div class="mb-3">
@@ -37,7 +37,7 @@
     private async Task setComplaintUser()
     {
         complaint.User = await LocalStorage.GetItemAsync<User>("currentUser");
-        complaint.ComplaintObject = Model.Domain.Enums.EComplaintObject.Doctor;
+        complaint.ComplaintObject = Model.Domain.Enums.EComplaintObject.Company;
         var response = await Http.PostAsJsonAsync("https://localhost:7241/Complaint", complaint);
         var resp = await response.Content.ReadFromJsonAsync<bool>();
 

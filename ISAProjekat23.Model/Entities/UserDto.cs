@@ -31,28 +31,19 @@ namespace ISAProjekat23.Model.Entities
         [MaxLength(100)]
         public string? LastName { get; set; }
 
-        public string? Address { get; set; }
-
         public string? City { get; set; }
 
         public string? Country { get; set; }
 
         public string? Phone { get; set; }
 
-        [Required]
-        [MinLength(13)]
-        [MaxLength(13)]
-        public string JMBG { get; set; } = null!;
-
-        public byte Gender { get; set; }
-
         public string? Occupation { get; set; }
 
         public string? Workplace { get; set; }
 
-        public bool IsSurveyed { get; set;} = false;
-
         public ushort Status { get; set; }
+
+        public ushort PenaltyPoints { get; set; }
 
     }
 }
