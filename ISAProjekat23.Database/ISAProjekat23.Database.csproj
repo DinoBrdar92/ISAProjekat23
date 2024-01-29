@@ -19,4 +19,8 @@
     <ProjectReference Include="..\ISAProjekat23.Model\ISAProjekat23.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

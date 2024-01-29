@@ -1,8 +1,7 @@
 using ISAProjekat23.Database;
+using ISAProjekat23.Repository.Reservations;
 using ISAProjekat23.Repository.Complaints;
 using ISAProjekat23.Repository.Users;
-using ISAProjekat23.Repository.Appointments;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +14,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IComplaintsRepository, ComplaintsRepository>();
-builder.Services.AddScoped<IAppointmentsRepository, AppointmentsRepository>();
+builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
 
 builder.Services.AddAuthentication("MyAuthScheme")
-    .AddCookie("MyAuthScheme", options => {
+    .AddCookie("MyAuthScheme", options =>
+    {
         options.LoginPath = "/Login";
         options.LogoutPath = "/Logout";
         options.AccessDeniedPath = "/AccessDenied";

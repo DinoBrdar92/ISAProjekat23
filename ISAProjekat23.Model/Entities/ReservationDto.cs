@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ISAProjekat23.Model.Entities
 {
-    public class AppointmentDto
+    public class ReservationDto
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

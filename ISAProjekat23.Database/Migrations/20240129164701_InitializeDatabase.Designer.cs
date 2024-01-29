@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ISAProjekat23.Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240128121431_NewProjectAdaptation")]
-    partial class NewProjectAdaptation
+    [Migration("20240129164701_InitializeDatabase")]
+    partial class InitializeDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,26 +22,35 @@ namespace ISAProjekat23.Database.Migrations
                 .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("ISAProjekat23.Model.Entities.AppointmentDto", b =>
+            modelBuilder.Entity("ISAProjekat23.Model.Entities.CompanyDto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<ushort>("Duration")
-                        .HasColumnType("smallint unsigned");
+                    b.Property<string>("Address")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<int?>("ReservedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("City")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("Country")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReservedBy");
-
-                    b.ToTable("Appointments");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("ISAProjekat23.Model.Entities.ComplaintDto", b =>
@@ -69,6 +78,47 @@ namespace ISAProjekat23.Database.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Complaints");
+                });
+
+            modelBuilder.Entity("ISAProjekat23.Model.Entities.ProductDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ISAProjekat23.Model.Entities.ReservationDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<ushort>("Duration")
+                        .HasColumnType("smallint unsigned");
+
+                    b.Property<int?>("ReservedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReservedBy");
+
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("ISAProjekat23.Model.Entities.UserDto", b =>
@@ -123,15 +173,6 @@ namespace ISAProjekat23.Database.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ISAProjekat23.Model.Entities.AppointmentDto", b =>
-                {
-                    b.HasOne("ISAProjekat23.Model.Entities.UserDto", "User")
-                        .WithMany()
-                        .HasForeignKey("ReservedBy");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ISAProjekat23.Model.Entities.ComplaintDto", b =>
                 {
                     b.HasOne("ISAProjekat23.Model.Entities.UserDto", "User")
@@ -139,6 +180,15 @@ namespace ISAProjekat23.Database.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ISAProjekat23.Model.Entities.ReservationDto", b =>
+                {
+                    b.HasOne("ISAProjekat23.Model.Entities.UserDto", "User")
+                        .WithMany()
+                        .HasForeignKey("ReservedBy");
 
                     b.Navigation("User");
                 });

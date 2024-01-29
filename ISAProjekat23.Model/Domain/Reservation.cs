@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ISAProjekat23.Model.Domain
 {
-    public class Appointment
+    public class Reservation
     {
         public int Id { get; set; }
 

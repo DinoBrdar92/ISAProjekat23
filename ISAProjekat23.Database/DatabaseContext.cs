@@ -1,12 +1,5 @@
-﻿using ISAProjekat23.Model.Domain;
-using ISAProjekat23.Model.Entities;
+﻿using ISAProjekat23.Model.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISAProjekat23.Database
 {
@@ -17,11 +10,13 @@ namespace ISAProjekat23.Database
         //public DatabaseContext(DbContextOptions options) : base(options)
         //{
         //}
-        
+
         //entities
         public DbSet<UserDto> Users { get; set; }
         public DbSet<ComplaintDto> Complaints { get; set; }
-        public DbSet<AppointmentDto> Appointments { get; set; }
+        public DbSet<ReservationDto> Reservations { get; set; }
+        public DbSet<CompanyDto> Companies { get; set; }
+        public DbSet<ProductDto> Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
