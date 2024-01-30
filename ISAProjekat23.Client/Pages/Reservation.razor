@@ -1,4 +1,4 @@
-﻿@page "/reservations"
+﻿@page "/appointments"
 
 @using ISAProjekat23.Model.Domain;
 
@@ -6,10 +6,10 @@
 @inject ILocalStorageService LocalStorage
 @inject NavigationManager NavManager
 
-<PageTitle>Reservations</PageTitle>
+<PageTitle>Appointments</PageTitle>
 
 <div class="container mt-5">
-    <h2>Reservation Schedule</h2>
+    <h2>Appointment Schedule</h2>
     <table class="table">
         <thead>
             <tr>
@@ -20,20 +20,20 @@
         </thead>
         <tbody>
 
-            @foreach (var reservation in reservations)
+            @foreach (var appointment in appointments)
             {
-                @if (reservation.ReservedBy == null || (reservation.ReservedBy.Id == loggedInUser?.Id))
+                @if (appointment.ReservedBy == null || (appointment.ReservedBy.Id == loggedInUser?.Id))
                 {
                     <tr>
-                        <td>@reservation.Start</td>
-                        <td>@reservation.Duration</td>
-                        @if (reservation.ReservedBy == null)
+                        <td>@appointment.Start</td>
+                        <td>@appointment.Duration</td>
+                        @if (appointment.ReservedBy == null)
                         {
-                            <td><button class="btn btn-primary" @onclick="async () => await ScheduleReservation(reservation.Id)">Reserve</button></td>
+                            <td><button class="btn btn-primary" @onclick="async () => await ReserveAppointment(appointment.Id)">Reserve</button></td>
                         }
-                        else if (reservation.ReservedBy.Id == loggedInUser?.Id)
+                        else if (appointment.ReservedBy.Id == loggedInUser?.Id)
                         {
-                            <td><button class="btn btn-danger" @onclick="async () => await CancelReservation(reservation.Id)" disabled="@IsLessThan24h(reservation.Start)">Cancel</button></td>
+                            <td><button class="btn btn-danger" @onclick="async () => await CancelAppointment(appointment.Id)" disabled="@IsLessThan24h(appointment.Start)">Cancel</button></td>
                         }
                         
                     </tr>
@@ -75,24 +75,24 @@
 
 @code {
     private User? loggedInUser;
-    private List<ISAProjekat23.Model.Domain.Reservation>? reservations;
+    private List<Appointment> appointments;
 
     protected override async Task OnInitializedAsync()
     {
         loggedInUser = await LocalStorage.GetItemAsync<User>("currentUser");
-        reservations = await Http.GetFromJsonAsync<List<ISAProjekat23.Model.Domain.Reservation>>("https://localhost:7241/Reservation/GetAllReservations");
+        appointments = await Http.GetFromJsonAsync<List<Appointment>>("https://localhost:7241/Appointment/GetAllAppointments");
     }
 
-    private async Task ScheduleReservation(int reservationId)
+    private async Task ReserveAppointment(int appointmentId)
     {
-        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Reservation/ScheduleReservation?reservationId={reservationId}&userId={loggedInUser?.Id}");
-        NavManager.NavigateTo("/reservations", true);
+        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Appointment/ReserveAppointment?appointmentId={appointmentId}&userId={loggedInUser?.Id}");
+        NavManager.NavigateTo("/appointments", true);
     }
 
-    private async Task CancelReservation(int reservationId)
+    private async Task CancelAppointment(int appointmentId)
     {
-        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Reservation/CancelReservation?reservationId={reservationId}");
-        NavManager.NavigateTo("/reservations", true);
+        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Appointment/CancelAppointment?appointmentId={appointmentId}");
+        NavManager.NavigateTo("/appointments", true);
     }
 
     private bool IsLessThan24h(DateTime start)

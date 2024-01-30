@@ -9,9 +9,9 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>WELCOME TO OUR MESS@(!name.Equals("") ? ", " + name : "")!</h1>
+<h1>Welcome to Medical center@(!name.Equals("") ? ", " + name : "")!</h1>
 
-<h4><b>M</b>edical <b>E</b>quipment <b>S</b>hop & <b>S</b>ervice</h4>
+We treat your blood like vampires
 
 <div class="container text-center mt-5">
     <h2>Choose one of the options below</h2>
@@ -32,6 +32,9 @@
             <a href="#" class="btn btn-primary btn-lg mb-3">Penalties</a>
         </div>
         <div class="col-md-4">
+            <a href="#" class="btn btn-primary btn-lg mb-3">Surveys</a>
+        </div>
+        <div class="col-md-4">
             <a href="#" class="btn btn-primary btn-lg mb-3">Complaints</a>
         </div>
         <div class="col-md-4">
@@ -39,6 +42,8 @@
         </div>
     </div>
 </div>
+
+<SurveyPrompt Title="New to our medical center?" />
 
 @code {
     string name = "";

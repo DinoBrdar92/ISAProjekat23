@@ -27,7 +27,7 @@ builder.Services.AddAuthentication("MyAuthScheme")
 builder.Services.AddHttpContextAccessor();
 
 
-//builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=asd123"));
+//builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=NodiDarbr3466"));
 builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Services.AddMvc();

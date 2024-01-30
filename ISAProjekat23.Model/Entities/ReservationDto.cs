@@ -28,6 +28,6 @@ namespace ISAProjekat23.Model.Entities
         public UserDto? Admin { get; set; }
 
         [ForeignKey(nameof(ReservedBy))]
-        public UserDto? User { get; set; }
+        public UserDto User { get; set; }
     }
 }
