@@ -12,11 +12,13 @@ namespace ISAProjekat23.Database
         //}
 
         //entities
-        public DbSet<UserDto> Users { get; set; }
-        public DbSet<ComplaintDto> Complaints { get; set; }
-        public DbSet<ReservationDto> Reservations { get; set; }
         public DbSet<CompanyDto> Companies { get; set; }
+        public DbSet<ComplaintDto> Complaints { get; set; }
         public DbSet<ProductDto> Products { get; set; }
+        public DbSet<ReservationDto> Reservations { get; set; }
+        public DbSet<UserDto> Users { get; set; }
+        public DbSet<OffersDto> Offers { get; set; }
+        public DbSet<OrdersDto> Orders { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

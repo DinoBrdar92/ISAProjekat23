@@ -47,7 +47,7 @@ namespace ISAProjekat23.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("ISAProjekat23.Model.Entities.ComplaintDto", b =>
@@ -74,7 +74,7 @@ namespace ISAProjekat23.Database.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Complaints");
+                    b.ToTable("Complaints", (string)null);
                 });
 
             modelBuilder.Entity("ISAProjekat23.Model.Entities.ProductDto", b =>
@@ -93,7 +93,7 @@ namespace ISAProjekat23.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("ISAProjekat23.Model.Entities.ReservationDto", b =>
@@ -115,7 +115,7 @@ namespace ISAProjekat23.Database.Migrations
 
                     b.HasIndex("ReservedBy");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservations", (string)null);
                 });
 
             modelBuilder.Entity("ISAProjekat23.Model.Entities.UserDto", b =>
@@ -167,7 +167,7 @@ namespace ISAProjekat23.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("ISAProjekat23.Model.Entities.ComplaintDto", b =>

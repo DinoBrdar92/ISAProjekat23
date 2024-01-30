@@ -14,6 +14,8 @@ namespace ISAProjekat23.Model.Domain
 
         public ushort Duration { get; set; }
 
+        public User HandledBy { get; set; } = null!;
+
         public User? ReservedBy { get; set; }
 
     }

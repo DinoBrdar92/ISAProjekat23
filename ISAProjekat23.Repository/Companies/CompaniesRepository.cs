@@ -20,9 +20,8 @@ namespace ISAProjekat23.Repository.Companies
                 Id = c.Id,
                 Name = c.Name,
                 Address = c.Address,
-                City = c.City,
-                Country = c.Country,
-                Phone = c.Phone
+                Description = c.Description,
+                Rating = c.Rating
             })
             .ToListAsync();
         }

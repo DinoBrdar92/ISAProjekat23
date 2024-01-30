@@ -29,6 +29,7 @@ namespace ISAProjekat23.Repository.Reservations
                         Id = r.Id,
                         Start = r.Start,
                         Duration = r.Duration,
+                        HandledBy = UserRepository.CreateDomainFromEntity(r.Admin),
                         ReservedBy = UserRepository.CreateDomainFromEntity(r.User)
                     })
                     .ToList();

@@ -20,7 +20,12 @@ namespace ISAProjekat23.Model.Entities
         [Required]
         public ushort Duration { get; set; }
 
+        public int HandledBy { get; set; }    //id admina kompanije koji će predati opremu
+
         public int? ReservedBy { get; set; }    //id korisnika koji je rezervisao (ako termin nije slobodan)
+
+        [ForeignKey(nameof(HandledBy))]
+        public UserDto? Admin { get; set; }
 
         [ForeignKey(nameof(ReservedBy))]
         public UserDto? User { get; set; }
