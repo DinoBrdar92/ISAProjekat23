@@ -51,7 +51,7 @@ namespace ISAProjekat23.Server.Controllers.Helpers
             smtpMessage.Subject = title;
 
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(Encoding.ASCII.GetBytes("The text which should be encoded."), QRCodeGenerator.ECCLevel.Q);
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(Encoding.ASCII.GetBytes(body), QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrCodeData);
             Bitmap qrCodeImage = qrCode.GetGraphic(20);
             string result;
@@ -63,7 +63,7 @@ namespace ISAProjekat23.Server.Controllers.Helpers
             }
 
 
-            var image = $"<p>Scan this QR code for joy<p><img style='width:100px' src='data:image/png;base64,{result}' />";
+            var image = $"<p>Scan this QR code for reservation info</p><img style='width:300px' src='data:image/png;base64,{result}' />";
 
             using (var multiPart = new Multipart("mixed"))
             {

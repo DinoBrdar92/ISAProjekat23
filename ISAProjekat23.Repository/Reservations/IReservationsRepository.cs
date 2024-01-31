@@ -7,6 +7,7 @@ namespace ISAProjekat23.Repository.Reservations
         Task<List<Reservation>> GetAllReservations();
         Task<List<Reservation>> GetReservationsByUser(int userId);
         Task<List<Reservation>> GetReservationsByCompany(int companyId);
-        Task<bool> ScheduleReservation(int companyId, int productId, int appointmentId, int reservedById);
+        Task<bool> ScheduleReservation(int productId, int appointmentId, int reservedById);
+        Task<bool> CancelReservation(int reservationId);
     }
 }

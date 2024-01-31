@@ -1,4 +1,5 @@
 ﻿using ISAProjekat23.Repository.Reservations;
+using ISAProjekat23.Server.Controllers.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,10 +48,26 @@ namespace ISAProjekat23.Server.Controllers.Reservation
         [Authorize]
         [HttpGet]
         [Route("ScheduleReservation")]
-        public async Task<bool> ScheduleReservation([FromQuery] int companyId, [FromQuery] int productId, [FromQuery] int appointmentId, [FromQuery] int reservedById)
+        public async Task<bool> ScheduleReservation([FromQuery] int productId, [FromQuery] int appointmentId, [FromQuery] int reservedById, [FromQuery] string email)
         {
 
-            return await _reservationsRepository.ScheduleReservation(companyId, productId, appointmentId, reservedById);
+            var operationSuccessful = await _reservationsRepository.ScheduleReservation(productId, appointmentId, reservedById);
+
+            if (operationSuccessful)
+            {
+                string body = productId + ", " + appointmentId;
+                await Email.SendQRCodeEmail("Your reservation is complete!", body, email);
+            }
+
+            return true;
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("CancelReservation")]
+        public async Task<bool> CancelAppointment([FromQuery] int reservationId)
+        {
+            return await _reservationsRepository.CancelReservation(reservationId);
         }
 
     }

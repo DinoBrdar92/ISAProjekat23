@@ -7,7 +7,6 @@
 @inject ILocalStorageService LocalStorage
 @inject NavigationManager NavManager
 @inject IJSRuntime Js
-@inject NavigationManager NavManager
 
 <PageTitle>Appointments</PageTitle>
 
@@ -32,7 +31,7 @@
                     <td>@appointment.Start</td>
                     <td>@appointment.Duration</td>
                     <td>@appointment.HandledBy.FirstName @appointment.HandledBy.LastName</td>
-                    <td><button class="btn btn-primary" @onclick="async () => await ScheduleReservation(Int32.Parse(CompanyId), Int32.Parse(ProductId), appointment.Id)">Reserve</button></td>
+                    <td><button class="btn btn-primary" @onclick="async () => await ScheduleReservation(Int32.Parse(ProductId), appointment.Id)">Reserve</button></td>
                 </tr>
             }
         </tbody>
@@ -54,10 +53,10 @@
         appointments = appointments.Where(x => x.CompanyId == Int32.Parse(CompanyId)).ToList();
     }
 
-    private async Task ScheduleReservation(int companyId, int productId, int appointmentId)
+    private async Task ScheduleReservation(int productId, int appointmentId)
     {
-        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Reservation/ScheduleReservation?companyId={companyId}&productId={productId}&appointmentId={appointmentId}&reservedById={loggedInUser.Id}");
-        await Js.InvokeVoidAsync("alert", "Reservation added successfully!");
+        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Reservation/ScheduleReservation?productId={productId}&appointmentId={appointmentId}&reservedById={loggedInUser.Id}&email={loggedInUser.Email}");
+        await Js.InvokeVoidAsync("alert", "Reservation added successfully! QR code with info was sent to your email!");
         NavManager.NavigateTo("/reservations", true);
 
     }
