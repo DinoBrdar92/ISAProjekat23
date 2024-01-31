@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISAProjekat23.Model.Entities
 {
@@ -31,28 +26,21 @@ namespace ISAProjekat23.Model.Entities
         [MaxLength(100)]
         public string? LastName { get; set; }
 
-        public string? Address { get; set; }
-
         public string? City { get; set; }
 
         public string? Country { get; set; }
 
         public string? Phone { get; set; }
 
-        [Required]
-        [MinLength(13)]
-        [MaxLength(13)]
-        public string JMBG { get; set; } = null!;
-
-        public byte Gender { get; set; }
-
         public string? Occupation { get; set; }
 
         public string? Workplace { get; set; }
 
-        public bool IsSurveyed { get; set;} = false;
-
         public ushort Status { get; set; }
+
+        public ushort PenaltyPoints { get; set; }
+
+        public ICollection<ManagesDto> Manages { get; set; }
 
     }
 }

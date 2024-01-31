@@ -1,0 +1,85 @@
+﻿@page "/addAppointment"
+
+@using ISAProjekat23.Model.Domain;
+
+@inject HttpClient Http
+@inject IJSRuntime Js
+@inject NavigationManager NavManager
+@inject ILocalStorageService LocalStorage
+
+
+@if (loggedInUser?.Role == Model.Domain.Enums.EUserRole.StaffAdmin)
+{
+    <div class="container mt-5">
+        <h2>Create Appointment</h2>
+        <form>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input @bind="@dateOnly" type="date" class="form-control" id="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="time" class="form-label">Time</label>
+                <input @bind="@timeOnly" type="time" class="form-control" id="time" required>
+            </div>
+            <div class="mb-3">
+                <label for="duration" class="form-label">Duration (minutes)</label>
+                <input @bind="@appointment.Duration" type="number" class="form-control" id="duration" min="5" required>
+            </div>
+            <div class="mb-3">
+                <label for="namesDropdown" class="form-label">Company admin:</label>
+                <select @bind="@appointment.HandledById" class="form-select" id="namesDropdown" name="selectedName" required>
+                    <option value="" disabled selected>Select company admin to handle appointment</option>
+                    @foreach (var user in companyAdmins)
+                    {
+                        <option value="@user.Id">@user.FirstName @user.LastName</option>
+                    }
+                    <!-- TODO: Add logic that fills list with CompanyAdmin names -->
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" @onclick="async () => await addAppointment()">Create Appointment</button>
+        </form>
+    </div>
+} else
+{
+    <h3>You do not have permission to view this page</h3>
+}
+
+
+@code {
+    User? loggedInUser;
+    List<User> companyAdmins;
+    DateOnly dateOnly;
+    TimeOnly timeOnly;
+    ISAProjekat23.Model.Domain.Appointment appointment = new ISAProjekat23.Model.Domain.Appointment();
+
+    protected override async Task OnInitializedAsync()
+    {
+        loggedInUser = await LocalStorage.GetItemAsync<User>("currentUser");
+
+        companyAdmins = await Http.GetFromJsonAsync<List<User>>($"https://localhost:7241/User/GetAllCompanyAdmins?companyId={loggedInUser.ManagesCompanyId}");
+
+    }
+
+    private async Task addAppointment()
+    {
+        appointment.Start = dateOnly.ToDateTime(timeOnly);
+        if (loggedInUser?.ManagesCompanyId != null)
+        {
+            appointment.CompanyId = (int)loggedInUser.ManagesCompanyId;
+        }
+        var response = await Http.PostAsJsonAsync("https://localhost:7241/Appointment/AddAppointment", appointment);
+        var resp = await response.Content.ReadFromJsonAsync<bool>();
+
+        if (resp)
+        {
+            await Js.InvokeVoidAsync("alert", "Appointment added successfully!");
+            NavManager.NavigateTo("/");
+        }
+        else
+        {
+            await Js.InvokeVoidAsync("alert", "There was some error adding appointment to database.");
+        }
+
+    }
+
+}

@@ -1,9 +1,4 @@
 ﻿using ISAProjekat23.Model.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISAProjekat23.Model.Domain
 {
@@ -21,24 +16,20 @@ namespace ISAProjekat23.Model.Domain
 
         public string? LastName { get; set; }
 
-        public string? Address { get; set; }
-
         public string? City { get; set; }
 
         public string? Country { get; set; }
 
         public string? Phone { get; set; }
 
-        public string JMBG { get; set; } = null!;
-
-        public EUserGender Gender { get; set; }
-
         public string? Occupation { get; set; }
 
         public string? Workplace { get; set; }
 
-        public bool IsSurveyed { get; set; }
+        public EUserStatus Status { get; set; }
 
-        public EUserStatus Status { get; set;  }
+        public ushort PenaltyPoints { get; set; }
+
+        public int? ManagesCompanyId { get; set; }
     }
 }

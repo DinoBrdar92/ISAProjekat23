@@ -4,7 +4,7 @@ namespace ISAProjekat23.Repository.Products
 {
     public interface IProductsRepository
     {
-        Task<List<Product>> GetAllProducts();
+        Task<List<Product>> GetAllProductsFromCompany(int companyId);
 
 
     }

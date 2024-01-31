@@ -1,12 +1,10 @@
 using ISAProjekat23.Model.Domain;
 using ISAProjekat23.Repository.Users;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
+using ISAProjekat23.Server.Controllers.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-
 
 namespace ISAProjekat23.Server.Controllers
 {
@@ -15,12 +13,12 @@ namespace ISAProjekat23.Server.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
-        
-        private IUserRepository _userRepository;
+
+        private IUsersRepository _userRepository;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserController(ILogger<UserController> logger, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+        public UserController(ILogger<UserController> logger, IUsersRepository userRepository, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _userRepository = userRepository;
@@ -32,7 +30,7 @@ namespace ISAProjekat23.Server.Controllers
         [Route("GetAllUsers")]
         public async Task<IEnumerable<User>> GetAllUsers()
         {
-          return await _userRepository.GetAllUsers();
+            return await _userRepository.GetAllUsers();
         }
 
         //[Route("/GetUser/{id}")]s
@@ -43,7 +41,7 @@ namespace ISAProjekat23.Server.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public async Task<ActionResult?> Login([FromBody]LoginCredentials loginCred)
+        public async Task<ActionResult?> Login([FromBody] LoginCredentials loginCred)
         {
             User? user;
             user = await _userRepository.GetUser(loginCred);
@@ -74,11 +72,37 @@ namespace ISAProjekat23.Server.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<bool> Register([FromBody]User potentialUser)
+        public async Task<bool> Register([FromBody] User potentialUser)
         {
-            bool operationSuccessful;
-            operationSuccessful = await _userRepository.RegisterUser(potentialUser);
-            return operationSuccessful;
+            var userDto = await _userRepository.RegisterUser(potentialUser);
+            if (userDto != null)
+            {
+
+                string verificationUrl = $"https://localhost:7241/User/Verify?id={userDto.Id}&name={userDto.FirstName}";
+                string body = $"<body style='font-family: 'Arial', sans-serif;'><div style='max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;'><h2 style='color: #3a1f8f;'>Account Verification</h2><p>Welcome to Our Website! To complete your registration, please click the link below to verify your account:</p><p><a href='{verificationUrl}' style='display: inline-block; padding: 10px 20px; background-color: #3c0047; color: #fff; text-decoration: none; border-radius: 3px;'>Verify Your Account</a></p><p>If you did not sign up for an account on Our Website, you can safely ignore this email.</p><p>Thank you,<br>The MESS Team</p></div></body>";
+                await Email.SendVerificationEmail($"Hi {userDto.FirstName}, Please verify your account", body, userDto.Email);
+
+                //await Email.SendQRCodeEmail("Verify your account", "link za verifikaciju", potentialUser.Email);
+                return true;
+            }
+            return false;
+        }
+
+        [HttpGet]
+        [Route("Verify")]
+        public async Task<string> Verify([FromQuery] string id, [FromQuery] string name)
+        {
+            bool operationSuccessful = await _userRepository.VerifyUser(id, name);
+
+            if (operationSuccessful)
+            {
+                return "Account verified! You can close this page and proceed to login.";
+            }
+            else
+            {
+
+            }
+            return "There was something wrong with your verification!";
         }
 
         [HttpGet]
@@ -97,6 +121,14 @@ namespace ISAProjekat23.Server.Controllers
                 return null;
             }
 
+        }
+
+
+        [HttpGet]
+        [Route("GetAllCompanyAdmins")]
+        public async Task<List<User>> GetAllCompanyUsers([FromQuery] int companyId)
+        {
+            return await _userRepository.GetAllCompanyAdmins(companyId);
         }
 
 

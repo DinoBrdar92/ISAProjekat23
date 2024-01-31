@@ -1,0 +1,90 @@
+﻿@page "/products/{CompanyId}"
+@page "/products"
+
+@using ISAProjekat23.Model.Domain
+
+@inject HttpClient Http
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager NavManager
+
+<PageTitle>Products</PageTitle>
+
+<div class="container mt-5">
+    <h2>Products from</h2>
+
+    <div class="row">
+
+        @foreach (var product in products)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text text-truncate">@product.Description</p>
+                        <p class="card-text">@product.Price RSD</p>
+                        @if (user != null)
+                        {
+                            <button class="btn btn-primary mt-auto" @onclick="() => Navigate(product.Id)">Order</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Product Card 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Product A</h5>
+                    <p class="card-text text-truncate">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="card-text">Price: $19.99</p>
+                    <button class="btn btn-primary mt-auto">Order</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Product B</h5>
+                    <p class="card-text text-truncate">Description: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="card-text">Price: $29.99</p>
+                    <button class="btn btn-primary mt-auto">Order</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Card 3 -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Product C</h5>
+                    <p class="card-text text-truncate">Description: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p class="card-text">Price: $39.99</p>
+                    <button class="btn btn-primary mt-auto">Order</button>
+                </div>
+            </div>
+        </div>
+        <!-- Add more Product Cards as needed -->
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string CompanyId { get; set; }
+    private User? user;
+    private List<Product>? products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await LocalStorage.GetItemAsync<User>("currentUser");
+        products = await Http.GetFromJsonAsync<List<Product>>($"https://localhost:7241/Product/GetAllProductsByCompany?CompanyId={CompanyId}");
+    }
+
+    private void Navigate(int productId)
+    {
+        NavManager.NavigateTo($"/appointments/{CompanyId}/{productId}", true);
+    }
+
+}

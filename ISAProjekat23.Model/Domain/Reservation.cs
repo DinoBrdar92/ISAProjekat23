@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ISAProjekat23.Model.Domain
+﻿namespace ISAProjekat23.Model.Domain
 {
     public class Reservation
     {
         public int Id { get; set; }
 
-        public DateTime Start { get; set; }
+        public Product Product { get; set; } = null!;
 
-        public ushort Duration { get; set; }
+        public Appointment Appointment { get; set; } = null!;
 
-        public User HandledBy { get; set; } = null!;
+        public User ReservedBy { get; set; } = null!;
 
-        public User? ReservedBy { get; set; }
+        public DateTime TimeReserved { get; set; }
 
+        public DateTime? TimeCancelled { get; set; }
     }
 }

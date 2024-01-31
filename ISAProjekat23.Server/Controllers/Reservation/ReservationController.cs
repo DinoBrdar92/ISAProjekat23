@@ -1,9 +1,5 @@
-﻿using ISAProjekat23.Model.Domain;
-using ISAProjekat23.Repository.Reservations;
-using ISAProjekat23.Repository.Complaints;
-using ISAProjekat23.Repository.Users;
+﻿using ISAProjekat23.Repository.Reservations;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ISAProjekat23.Server.Controllers.Reservation
@@ -13,9 +9,7 @@ namespace ISAProjekat23.Server.Controllers.Reservation
     public class ReservationController : ControllerBase
     {
         private readonly ILogger<ReservationController> _logger;
-
         private IReservationsRepository _reservationsRepository;
-
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ReservationController(ILogger<ReservationController> logger, IReservationsRepository reservationsRepository, IHttpContextAccessor httpContextAccessor)
@@ -34,27 +28,30 @@ namespace ISAProjekat23.Server.Controllers.Reservation
         }
 
         [Authorize]
-        [HttpPost]
-        [Route("AddReservation")]
-        public async Task<bool> AddReservation([FromBody] Model.Domain.Reservation reservation)
+        [HttpGet]
+        [Route("GetReservationsByUser")]
+        public async Task<IEnumerable<Model.Domain.Reservation>> GetReservationsByUser([FromQuery] int userId)
         {
-            return await _reservationsRepository.AddReservation(reservation);
+            return await _reservationsRepository.GetReservationsByUser(userId);
+        }
+
+
+        [Authorize]
+        [HttpGet]
+        [Route("GetReservationsByCompany")]
+        public async Task<IEnumerable<Model.Domain.Reservation>> GetReservationsByCompany([FromQuery] int companyId)
+        {
+            return await _reservationsRepository.GetReservationsByCompany(companyId);
         }
 
         [Authorize]
         [HttpGet]
         [Route("ScheduleReservation")]
-        public async Task<bool> ScheduleReservation([FromQuery]int reservationId, [FromQuery]int userId)
+        public async Task<bool> ScheduleReservation([FromQuery] int companyId, [FromQuery] int productId, [FromQuery] int appointmentId, [FromQuery] int reservedById)
         {
-            return await _reservationsRepository.ScheduleReservation(reservationId, userId);
+
+            return await _reservationsRepository.ScheduleReservation(companyId, productId, appointmentId, reservedById);
         }
 
-        [Authorize]
-        [HttpGet]
-        [Route("CancelReservation")]
-        public async Task<bool> CancelReservation([FromQuery] int reservationId)
-        {
-            return await _reservationsRepository.CancelReservation(reservationId);
-        }
     }
 }

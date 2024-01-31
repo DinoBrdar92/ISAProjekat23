@@ -1,6 +1,9 @@
 using ISAProjekat23.Database;
-using ISAProjekat23.Repository.Reservations;
+using ISAProjekat23.Repository.Appointments;
+using ISAProjekat23.Repository.Companies;
 using ISAProjekat23.Repository.Complaints;
+using ISAProjekat23.Repository.Products;
+using ISAProjekat23.Repository.Reservations;
 using ISAProjekat23.Repository.Users;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,8 +15,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAppointmentsRepository, AppointmentsRepository>();
+builder.Services.AddScoped<ICompaniesRepository, CompaniesRepository>();
 builder.Services.AddScoped<IComplaintsRepository, ComplaintsRepository>();
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IReservationsRepository, ReservationsRepository>();
 
 builder.Services.AddAuthentication("MyAuthScheme")
@@ -27,7 +33,7 @@ builder.Services.AddAuthentication("MyAuthScheme")
 builder.Services.AddHttpContextAccessor();
 
 
-//builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=NodiDarbr3466"));
+//builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=asd123"));
 builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Services.AddMvc();

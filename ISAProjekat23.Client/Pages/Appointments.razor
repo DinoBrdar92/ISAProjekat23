@@ -1,0 +1,77 @@
+﻿@page "/appointments/{CompanyId}/{ProductId}"
+@page "/appointments"
+
+@using ISAProjekat23.Model.Domain;
+
+@inject HttpClient Http
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager NavManager
+@inject IJSRuntime Js
+@inject NavigationManager NavManager
+
+<PageTitle>Appointments</PageTitle>
+
+<div class="container mt-5">
+    <h2>Appointment Schedule</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>When</th>
+                <th>Duration (minutes)</th>
+                <th>Admin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+
+            @foreach (var appointment in appointments)
+            {
+                <tr>
+                    <td>@appointment.Start</td>
+                    <td>@appointment.Duration</td>
+                    <td>@appointment.HandledBy.FirstName @appointment.HandledBy.LastName</td>
+                    <td><button class="btn btn-primary" @onclick="async () => await ScheduleReservation(Int32.Parse(CompanyId), Int32.Parse(ProductId), appointment.Id)">Reserve</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter]
+    public string CompanyId { get; set; }
+    [Parameter]
+    public string ProductId { get; set; }
+    private User? loggedInUser;
+    private List<Appointment>? appointments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loggedInUser = await LocalStorage.GetItemAsync<User>("currentUser");
+        appointments = await Http.GetFromJsonAsync<List<Appointment>>("https://localhost:7241/Appointment/GetAllAppointments");
+        appointments = appointments.Where(x => x.CompanyId == Int32.Parse(CompanyId)).ToList();
+    }
+
+    private async Task ScheduleReservation(int companyId, int productId, int appointmentId)
+    {
+        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Reservation/ScheduleReservation?companyId={companyId}&productId={productId}&appointmentId={appointmentId}&reservedById={loggedInUser.Id}");
+        await Js.InvokeVoidAsync("alert", "Reservation added successfully!");
+        NavManager.NavigateTo("/reservations", true);
+
+    }
+    /*
+    private async Task CancelReservation(int appointmentId)
+        {
+        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Appointment/CancelAppointment?appointmentId={appointmentId}");
+        NavManager.NavigateTo("/reservations", true);
+
+    }
+
+    private bool IsLessThan24h(DateTime start)
+        {
+        return (start - DateTime.Now).TotalHours < 24;
+    }
+    */
+}

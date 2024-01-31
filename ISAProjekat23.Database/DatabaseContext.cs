@@ -12,17 +12,20 @@ namespace ISAProjekat23.Database
         //}
 
         //entities
+        public DbSet<AppointmentDto> Appointments { get; set; }
         public DbSet<CompanyDto> Companies { get; set; }
         public DbSet<ComplaintDto> Complaints { get; set; }
         public DbSet<ProductDto> Products { get; set; }
         public DbSet<ReservationDto> Reservations { get; set; }
         public DbSet<UserDto> Users { get; set; }
+
+        //join tables
         public DbSet<OffersDto> Offers { get; set; }
-        public DbSet<OrdersDto> Orders { get; set; }
+        public DbSet<ManagesDto> Manages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=NodiDarbr3466");
+            optionsBuilder.UseMySQL("server=localhost;port=3306;database=ISAProjekat;Uid=root;Pwd=11111");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISAProjekat23.Model.Entities
 {
@@ -15,19 +10,26 @@ namespace ISAProjekat23.Model.Entities
         public int Id { get; set; }
 
         [Required]
-        public DateTime Start { get; set; }
+        public int ProductId { get; set; }
+
+        [ForeignKey(nameof(ProductId))]
+        public ProductDto? Product { get; set; }
 
         [Required]
-        public ushort Duration { get; set; }
+        public int AppointmentId { get; set; }
 
-        public int HandledBy { get; set; }    //id admina kompanije koji će predati opremu
+        [ForeignKey(nameof(AppointmentId))]
+        public AppointmentDto Appointment { get; set; } = null!;
 
-        public int? ReservedBy { get; set; }    //id korisnika koji je rezervisao (ako termin nije slobodan)
-
-        [ForeignKey(nameof(HandledBy))]
-        public UserDto? Admin { get; set; }
+        [Required]
+        public int ReservedBy { get; set; }
 
         [ForeignKey(nameof(ReservedBy))]
-        public UserDto User { get; set; }
+        public UserDto User { get; set; } = null!;
+
+        [Required]
+        public DateTime TimeReserved { get; set; }
+
+        public DateTime? TimeCancelled { get; set; }
     }
 }

@@ -14,5 +14,8 @@ namespace ISAProjekat23.Model.Entities
         public string Name { get; set; } = null!;
 
         public string? Description { get; set; }
+
+        [Required]
+        public float Price { get; set; }
     }
 }

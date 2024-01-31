@@ -1,0 +1,69 @@
+﻿@page "/myprofile"
+
+@using ISAProjekat23.Model.Domain
+
+@inject HttpClient Http
+@inject ILocalStorageService LocalStorage
+
+<PageTitle>My Profile</PageTitle>
+
+<div class="container mt-5">
+    <h2>My Profile</h2>
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <div id="email">@thisUser.Email</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Name:</label>
+        <div id="name">@thisUser.FirstName</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name:</label>
+        <div id="lastName">@thisUser.LastName</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="city" class="form-label">City:</label>
+        <div id="city">@thisUser.City</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="country" class="form-label">Country:</label>
+        <div id="country">@thisUser.Country</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="phoneNumber" class="form-label">Phone Number:</label>
+        <div id="phoneNumber">@thisUser.Phone</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="occupation" class="form-label">Occupation:</label>
+        <div id="occupation">@thisUser.Occupation</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="workplace" class="form-label">Workplace:</label>
+        <div id="workplace">@thisUser.Workplace</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="penaltyPoints" class="form-label">Penalty Points:</label>
+        <div id="penaltyPoints">@thisUser.PenaltyPoints</div>
+    </div>
+
+</div>
+@code {
+    private User? thisUser;
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await LocalStorage.GetItemAsync<User>("currentUser");
+        if (user != null)
+        {
+            thisUser = user;
+        }
+    }
+}

@@ -1,0 +1,54 @@
+﻿@page "/reservations"
+
+@using ISAProjekat23.Model.Domain
+
+@inject HttpClient Http
+@inject ILocalStorageService LocalStorage
+
+<PageTitle>Reservations</PageTitle>
+
+<div class="container mt-5">
+    <h2>Reservation List</h2>
+
+    <ul class="list-group">
+        <!-- Reservation 1 -->
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Date:</strong> January 1, 2023
+                <br>
+                <strong>Time:</strong> 10:00 AM
+                <br>
+                <strong>Duration:</strong> 60 minutes
+                <br>
+                <strong>Responsible Person:</strong> John Doe
+                <br>
+                <strong>Company:</strong> ABC Inc.
+            </div>
+            <button class="btn btn-danger">Cancel</button>
+        </li>
+
+        <!-- Reservation 2 -->
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Date:</strong> January 5, 2023
+                <br>
+                <strong>Time:</strong> 2:30 PM
+                <br>
+                <strong>Duration:</strong> 45 minutes
+                <br>
+                <strong>Responsible Person:</strong> Jane Smith
+                <br>
+                <strong>Company:</strong> XYZ Corp.
+            </div>
+            <button class="btn btn-danger">Cancel</button>
+        </li>
+
+        <!-- Add more reservations as needed -->
+    </ul>
+
+</div>
+
+
+@code {
+
+}

@@ -1,13 +1,6 @@
 ﻿using ISAProjekat23.Database;
 using ISAProjekat23.Model.Domain;
 using ISAProjekat23.Model.Entities;
-using ISAProjekat23.Repository.Users;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISAProjekat23.Repository.Reservations
 {
@@ -22,71 +15,37 @@ namespace ISAProjekat23.Repository.Reservations
 
         public async Task<List<Reservation>> GetAllReservations()
         {
-            var apps = await databaseContext.Reservations.Include(x => x.User).ToListAsync();
-                
-            return apps.Select(r => new Reservation()
-                    {
-                        Id = r.Id,
-                        Start = r.Start,
-                        Duration = r.Duration,
-                        HandledBy = UserRepository.CreateDomainFromEntity(r.Admin),
-                        ReservedBy = UserRepository.CreateDomainFromEntity(r.User)
-                    })
-                    .ToList();
+            //TODO: vratiti listu svih rezervacija (da li uopste treba?)
+            return null;
         }
 
-        public async Task<bool> AddReservation(Reservation reservation)
+        public async Task<List<Reservation>> GetReservationsByUser(int userId)
         {
-            databaseContext.Reservations.Add(CreateEntityFromDomain(reservation));
-            await databaseContext.SaveChangesAsync();
-
-            return true;
+            //TODO: vratiti listu svih rezervacija samo za tog korisnika
+            return null;
         }
 
-        public async Task<bool> ScheduleReservation(int reservationId, int userId)
+        public async Task<List<Reservation>> GetReservationsByCompany(int companyId)
         {
-            var reservation = await databaseContext.Reservations.FirstOrDefaultAsync(a => a.Id == reservationId);
-            reservation.ReservedBy = userId;
-            await databaseContext.SaveChangesAsync();
-            return true;
+            //TODO: vratiti listu svih rezervacija samo za tu kompaniju
+            return null;
         }
 
-        public async Task<bool> CancelReservation(int reservationId)
+        public async Task<bool> ScheduleReservation(int companyId, int productId, int appointmentId, int reservedById)
         {
-            var reservation = await databaseContext.Reservations.FirstOrDefaultAsync(a => a.Id == reservationId);
-            reservation.ReservedBy = null;
-            await databaseContext.SaveChangesAsync();
-            return true;
-        }
-
-
-        public ReservationDto CreateEntityFromDomain(Reservation reservation)
-        {
-            ReservationDto reservationDto = new ReservationDto()
+            var reservation = new ReservationDto()
             {
-                Id = reservation.Id,
-                Start = reservation.Start,
-                Duration = reservation.Duration,
-                ReservedBy = reservation.ReservedBy?.Id,
-
+                ProductId = productId,
+                AppointmentId = appointmentId,
+                ReservedBy = reservedById,
+                TimeReserved = DateTime.Now,
             };
 
-            return reservationDto;
+            databaseContext.Reservations.Add(reservation);
+            await databaseContext.SaveChangesAsync();
+
+            return true;
         }
 
-        public Reservation CreateDomainFromEntity(ReservationDto reservationDto)
-        {
-            Reservation reservation = new Reservation()
-            {
-                Id = reservationDto.Id,
-                Start = reservationDto.Start,
-                Duration = reservationDto.Duration,
-                //TODO: nacin da preko Id-ja dobijem User-a
-                //ReservedBy = 
-
-        };
-
-            return reservation;
-        }
     }
 }

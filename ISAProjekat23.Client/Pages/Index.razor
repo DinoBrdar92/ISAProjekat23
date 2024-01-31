@@ -8,45 +8,131 @@
 @inject ILocalStorageService LocalStorage
 
 <PageTitle>Index</PageTitle>
+<!-- Custom styles for the cards -->
+<style>
+    .company-card {
+        margin-bottom: 20px;
+        height: 200px; /* Fixed height for each card */
+        text-decoration: none; /* Remove default link styling */
+        color: inherit; /* Inherit color from parent */
+    }
 
-<h1>Welcome to Medical center@(!name.Equals("") ? ", " + name : "")!</h1>
+        .company-card:hover {
+            text-decoration: none; /* Remove underline on hover */
+        }
 
-We treat your blood like vampires
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%; /* Ensure the card body takes full height */
+    }
 
-<div class="container text-center mt-5">
-    <h2>Choose one of the options below</h2>
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <a href="#" class="btn btn-primary btn-lg mb-3">Centers</a>
-        </div>
-        <div class="col-md-4">
-            <a href="#" class="btn btn-primary btn-lg mb-3">History</a>
-        </div>
-        <div class="col-md-4">
-            <a href="#" class="btn btn-primary btn-lg mb-3">Reservations</a>
-        </div>
-        <div class="col-md-4">
-            <a href="#" class="btn btn-primary btn-lg mb-3">QR Codes</a>
-        </div>
-        <div class="col-md-4">
-            <a href="#" class="btn btn-primary btn-lg mb-3">Penalties</a>
-        </div>
-        <div class="col-md-4">
-            <a href="#" class="btn btn-primary btn-lg mb-3">Surveys</a>
-        </div>
-        <div class="col-md-4">
-            <a href="#" class="btn btn-primary btn-lg mb-3">Complaints</a>
-        </div>
-        <div class="col-md-4">
-            <a href="#" class="btn btn-primary btn-lg mb-3">Profile</a>
-        </div>
+    .card-title {
+        font-size: 1.25rem;
+    }
+
+    .card-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Show up to 3 lines */
+        -webkit-box-orient: vertical;
+    }
+
+    .rating {
+        margin-top: auto; /* Stick to the bottom of the card */
+    }
+</style>
+<h1>Welcome to the MESS@(!name.Equals("") ? ", " + name : "")!</h1>
+
+<h4><b>M</b>edical <b>E</b>quipment <b>S</b>hop <b>S</b>ite</h4>
+
+<div class="container mt-5">
+    <h2>Our companies</h2>
+
+    <div class="row">
+
+        @foreach (var company in companies)
+        {
+            string link = $"https://localhost:7061/products/{company.Id}";
+            <a href="@link" class="col-md-4 company-card">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@company.Name</h5>
+                        <p class="card-text">@company.Address</p>
+                        <p class="card-text">@company.Description</p>
+                        <div class="rating">
+                            @company.Rating
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+
+        <!-- Company Card 1 -->
+        <a href="#" class="col-md-4 company-card">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Company A</h5>
+                    <p class="card-text">Address: 123 Main St</p>
+                    <p class="card-text">Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <div class="rating">
+                        ☆☆☆☆☆
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Company Card 2 -->
+        <a href="#" class="col-md-4 company-card">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Company B</h5>
+                    <p class="card-text">Address: 456 Oak St</p>
+                    <p class="card-text">Description: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="rating">
+                        ★★★★★
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Company Card 3 -->
+        <a href="#" class="col-md-4 company-card">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Company C</h5>
+                    <p class="card-text">Address: 789 Pine St</p>
+                    <p class="card-text">Description: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <div class="rating">
+                        ★★★☆☆
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Add more Company Cards as needed -->
+
+        <a href="#" class="col-md-4 company-card">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Company D</h5>
+                    <p class="card-text">Address: 7859 Pine St</p>
+                    <p class="card-text">Description: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <div class="rating">
+                        ★★★☆☆
+                    </div>
+                </div>
+            </div>
+        </a>
+        
     </div>
 </div>
 
-<SurveyPrompt Title="New to our medical center?" />
-
 @code {
     string name = "";
+    private List<Company>? companies = new List<Company>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -55,5 +141,6 @@ We treat your blood like vampires
         {
             name = user.FirstName;
         }
+        companies = await Http.GetFromJsonAsync<List<Company>>("https://localhost:7241/Company/GetAllCompanies");
     }
 }

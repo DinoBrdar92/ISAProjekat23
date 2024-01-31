@@ -10,6 +10,8 @@
 
         public string? Description { get; set; }
 
-        public ushort Rating { get; set; }
+        public float Rating { get; set; }
+
+        //TODO: spisak drugih administratora kompanije
     }
 }

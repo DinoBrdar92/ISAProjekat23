@@ -18,8 +18,9 @@ namespace ISAProjekat23.Model.Entities
 
         public string? Description { get; set; }
 
-        [MaxLength(100)]
-        public ushort Rating { get; set; }
+        public float Rating { get; set; }
+
+        public ICollection<OffersDto> Offers { get; set; }
 
     }
 }

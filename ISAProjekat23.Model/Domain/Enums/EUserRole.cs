@@ -2,8 +2,8 @@
 {
     public enum EUserRole
     {
-        Registered,
         SysAdmin,
-        StaffAdmin
+        StaffAdmin,
+        Registered
     }
 }

@@ -8,7 +8,7 @@ namespace ISAProjekat23.Model.Domain.Enums
 {
     public enum EComplaintObject
     {
-        Doctor,
-        MedicalCenter
+        Company,
+        Administrator
     }
 }

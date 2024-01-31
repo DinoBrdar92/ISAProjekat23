@@ -13,15 +13,23 @@ namespace ISAProjekat23.Repository.Products
             databaseContext = dc;
         }
 
-        public async Task<List<Product>> GetAllProducts()
+        public async Task<List<Product>> GetAllProductsFromCompany(int companyId)
         {
-            return await databaseContext.Products.Select(p => new Product()
+            var productsFromCompanyDto = await databaseContext.Offers
+                .Include(o => o.Product)
+                .Where(o => o.CompanyId == companyId)
+                .Select(o => o.Product)
+                .ToListAsync();
+
+
+            return productsFromCompanyDto.Select(p => new Product()
             {
                 Id = p.Id,
                 Name = p.Name,
-                Description = p.Description
+                Description = p.Description,
+                Price = p.Price
             })
-            .ToListAsync();
+            .ToList();
         }
     }
 }

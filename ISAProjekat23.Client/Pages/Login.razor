@@ -38,10 +38,18 @@
     {
         var response = await Http.PostAsJsonAsync("https://localhost:7241/User/Login", loginCred);
         var user = await response.Content.ReadFromJsonAsync<User?>();
+
         if (user != null)
         {
-            await LocalStorage.SetItemAsync("currentUser", user);
-            NavManager.NavigateTo("/");
+            if (user.Status == Model.Domain.Enums.EUserStatus.Verified)
+            {
+                await LocalStorage.SetItemAsync("currentUser", user);
+                NavManager.NavigateTo("/");
+            }
+            else if (user.Status == Model.Domain.Enums.EUserStatus.Unverified)
+            {
+                await Js.InvokeVoidAsync("alert", "To log in, you must confirm your email adress. Click the link we sent you in the email you provided!");
+            }
         }
         else
         {
