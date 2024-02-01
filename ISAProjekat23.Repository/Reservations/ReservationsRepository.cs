@@ -25,7 +25,7 @@ namespace ISAProjekat23.Repository.Reservations
             return await databaseContext.Reservations
                 .Include(x => x.Product)
                 .Include(x => x.Appointment)
-                .Where(x => x.ReservedBy == userId)
+                .Where(x => x.ReservedBy == userId && x.TimeCancelled == null)
                 .Select(x => new Reservation()
                 {
                     Id = x.Id,
@@ -71,13 +71,28 @@ namespace ISAProjekat23.Repository.Reservations
 
         public async Task<bool> CancelReservation(int reservationId)
         {
-            var reservation = await databaseContext.Reservations.FirstOrDefaultAsync(x => x.Id == reservationId);
-
-            reservation.TimeCancelled = DateTime.Now;
-
+            var reservationDto = await databaseContext.Reservations.FirstOrDefaultAsync(x => x.Id == reservationId);
+            DateTime now = DateTime.Now;
+            reservationDto.TimeCancelled = now;
+            //TODO: dodati logiku za dodavanje bodova
+            /*
+            if (IsLessThan24h(reservationDto.Appointment.Start))
+            {
+                reservationDto.User.PenaltyPoints += 2;
+            }
+            else
+            {
+                reservationDto.User.PenaltyPoints += 1;
+            }
+            */
             await databaseContext.SaveChangesAsync();
 
             return true;
+        }
+
+        private bool IsLessThan24h(DateTime start)
+        {
+            return (start - DateTime.Now).TotalHours < 24;
         }
 
     }

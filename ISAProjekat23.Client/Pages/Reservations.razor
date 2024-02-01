@@ -13,7 +13,6 @@
     <h2>Reservations</h2>
 
     <ul class="list-group">
-        <!-- Reservation 1 -->
         @foreach (var reservation in reservationsByUser)
         {
         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -44,15 +43,13 @@
 
     private async Task CancelReservation(int reservationId)
     {
-        await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Reservation/CancelReservation?reservationId={reservationId}");
-        await Js.InvokeVoidAsync("alert", "Reservation cancelled successfully! You will be penalized accordingly!");
-        NavManager.NavigateTo("/reservations", true);
+        if (await Js.InvokeAsync<bool>("confirm", "Are you sure you want to cancel reservation?"))
+        {
+            await Http.GetFromJsonAsync<bool>($"https://localhost:7241/Reservation/CancelReservation?reservationId={reservationId}");
+            await Js.InvokeVoidAsync("alert", "Reservation cancelled successfully! You will be penalized accordingly!");
+            NavManager.NavigateTo("/reservations", true);
+        }
 
-    }
-
-    private bool IsLessThan24h(DateTime start)
-    {
-        return (start - DateTime.Now).TotalHours < 24;
     }
 }
 
