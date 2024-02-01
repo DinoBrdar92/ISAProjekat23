@@ -7,9 +7,9 @@
 <br><br>
 
 Korišćene tehnologije:
-Frontend: .NET Blazor + Bootstrap v5.3
-Backend: .NET Core
-Baza podataka: MySQL
+<br>Frontend: .NET Blazor + Bootstrap v5.3
+<br>Backend: .NET Core
+<br>Baza podataka: MySQL
 <br><br>
 
 Za pokretanje programa neophodno je imati instaliran Visual Studio (preporučljivo verziju 2022) i MySQL Server i Workbench.
