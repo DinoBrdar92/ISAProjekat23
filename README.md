@@ -22,7 +22,7 @@ Za pokretanje programa neophodno je imati instaliran Visual Studio (preporučlji
 <strong>NAPOMENA</strong>: Par komitova koji su se desili nakon 31.1. su bili iz sledećih razloga:
 1. Slučajno paste-ovan sadržaj ```AddAppointment``` brancha u ```master```, pa je došlo do dosta grešaka koje sam otkrio tek sutradan. Samo sam obrisao ponovo uradio clean paste i to je rešilo problem.
 2. Slučajno komitovane stare migracije, što je pravilo problem pri ažuriranju baze. Samo sam obrisao stare da stavim nove.
-3. Dodat SQL fajl sa test podacima i ažuriran README.md fajl.
+3. Dodat SQL fajl sa test podacima i ažuriran ```README.md``` fajl.
 
 Naglašavam da cilj nijednog od komitova nakon 31.1. nije bio radi dodatnih funkcionalnosti, već samo radi ispravke greške nastale pri spajanju grana i slanja pogrešnih migracionih fajlova za bazu.
 <br><br>
