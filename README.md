@@ -7,7 +7,7 @@
 <br><br>
 
 <b>Korišćene tehnologije</b>
-<br>Frontend: .NET Blazor + Bootstrap v5.3
+<br>Frontend: .NET Blazor + Bootstrap
 <br>Backend: .NET Core
 <br>Baza podataka: MySQL
 <br><br>
