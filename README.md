@@ -6,7 +6,7 @@
 <h4>Dino Brdar RA143/2011</h4>
 <br><br>
 
-Korišćene tehnologije:
+<b>Korišćene tehnologije</b>
 <br>Frontend: .NET Blazor + Bootstrap v5.3
 <br>Backend: .NET Core
 <br>Baza podataka: MySQL
@@ -14,13 +14,13 @@ Korišćene tehnologije:
 
 Za pokretanje programa neophodno je imati instaliran Visual Studio (preporučljivo verziju 2022) i MySQL Server i Workbench.
 
-~Branch koji je za pregledanje se zove ```AddAppointment```.~ EDIT: U međuvremenu sam video obaveštenje na formi za prijavu da sve mora biti na jednoj grani, tako da sam rešio problem koji je postojao na ```master``` grani, a AddAppointment branch je uklonjen.
+~Branch koji je za pregledanje se zove ```AddAppointment```.~ EDIT: U međuvremenu sam video obaveštenje na formi za prijavu da sve mora biti na jednoj grani, tako da sam rešio problem koji je postojao na ```master``` grani, a ```AddAppointment``` branch je uklonjen.
 
-MySQL skripta za dodavanje test vrednosti u bazu će biti naknadno dodata. EDIT: SQL fajl za insert test podataka se nalazi u ```ISAProjekat23.Database/TestDataSQL/test.sql```
+~MySQL skripta za dodavanje test vrednosti u bazu će biti naknadno dodata.~ EDIT: SQL fajl za insert test podataka se nalazi u ```ISAProjekat23.Database/TestDataSQL/test.sql```
 <br><br>
 
-<b>NAPOMENA</b>: Par komitova koji su se desili nakon 31.1. su bili iz sledećih razloga:
-1. Slučajno paste-ovan sadržaj AddAppointment brancha u master sa laptopa na desktop, pa je došlo do dosta grešaka koje sam otkrio tek sutradan. Samo sam obrisao ponovo uradio clean paste i to je rešilo problem.
+<strong>NAPOMENA</strong>: Par komitova koji su se desili nakon 31.1. su bili iz sledećih razloga:
+1. Slučajno paste-ovan sadržaj ```AddAppointment``` brancha u ```master```, pa je došlo do dosta grešaka koje sam otkrio tek sutradan. Samo sam obrisao ponovo uradio clean paste i to je rešilo problem.
 2. Slučajno komitovane stare migracije, što je pravilo problem pri ažuriranju baze. Samo sam obrisao stare da stavim nove.
 3. Dodat SQL fajl sa test podacima i ažuriran README.md fajl.
 
